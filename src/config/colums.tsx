@@ -178,6 +178,12 @@ export const columnsService = [
     render: (text: any) => <span>{text}</span>,
   },
   {
+    title: 'Giá Combo',
+    dataIndex: 'GiaComBo',
+    key: 'GiaComBo',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
     title: 'Tình trạng',
     key: 'TinhTrang',
     dataIndex: 'TinhTrang',
@@ -188,14 +194,14 @@ export const columnsService = [
             className="bt-tag button-green"
           >
             <span className="status green"></span>
-            Chưa sự dụng
+            Đang áp dụng
           </Tag>
           :
           <Tag
             className="bt-tag button-red"
           >
             <span className="status red"></span>
-            Hết hạn
+            Tắt
           </Tag>
         }
       </span>

@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { columnsCheckingTicket } from '../config/colums';
 import { dataCheckingTicket } from '../config/data';
 import Icon_sreach from '../images/Icon_sreach.png';
-
+import StylingCalendar from '../components/calendar/StyledCalendar'
 const { Content } = Layout;
 const CheckingTicket: FC = () => {
   // đang làm
@@ -12,11 +12,10 @@ const CheckingTicket: FC = () => {
     <Content
       className="site-layout-conten"
       style={{
-        marginRight: '33px',
+        // marginRight: '33px',
         padding: 24,
         minHeight: 280,
         display: 'grid',
-        // gridGap: '36px',
         gridTemplateColumns: '70% auto',
       }}
     >
@@ -64,9 +63,9 @@ const CheckingTicket: FC = () => {
         <Card
           title="Card"
           style={{
-            width: 480,
-            margin: '24px 0px 0px 24px',
-            fontSize: 20,
+            width: 450,
+            margin: '0px 0px 0px 24px',
+            fontSize: 16,
             borderRadius: 24
           }}>
           <Row>
@@ -89,12 +88,12 @@ const CheckingTicket: FC = () => {
 
           <Row>
             <Col span={12}>Từ ngày</Col>
-            <Col span={12}><DatePicker size="large" /></Col>
+            <Col span={12}><StylingCalendar /></Col>
           </Row><br />
 
           <Row>
             <Col span={12}>Đến ngày</Col>
-            <Col span={12}><DatePicker size="large" /></Col>
+            <Col span={12}><StylingCalendar /></Col>
           </Row><br /><br />
 
           <Row className="enter">

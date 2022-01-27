@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .Sider {
   background: #E5E5E5;
 }
@@ -47,7 +48,7 @@
 }
 
 .search-wrapper input {
-  background: #EDE6E6;
+  background: #EDEDED;
   font-size: 20px;
   width: 424px;
   height: 90%;
@@ -78,7 +79,7 @@
 .card {
   border-radius: 5px;
   box-shadow: none;
-  margin: 25px 32px
+  margin: 0px 32px
 }
 
 .card-title,
@@ -120,7 +121,7 @@
   margin-left: 5px;
 }
 
-.card-header button:hover, .btn-orange:hover{
+.card-header button:hover, .btn-orange:hover {
   color: #ffffff;
   background: #FF993C;
   border: 1px solid #FF993C;
@@ -175,3 +176,51 @@
   background: #03AC00;
 }
 
+.molde-input {
+  width: 245px;
+  height: 40px;
+  border: 1px solid #A5A8B1;
+  border-radius: 8px;
+  font-size: 20px
+}
+
+.molde-input-money {
+  width: 148px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  background: #F1F4F8;
+  margin: 0px 8px;
+}
+
+.star-red {
+  color: #FD5959;
+  margin: 0px 4px;
+  font-weight: 600
+}
+
+.font-faint {
+  color: "#1E0D03";
+  opacity: 0.4;
+  margin: "0px 4px"
+}
+
+.bt-cancel {
+  width: 160px;
+  height: 48px;
+  border-radius: 8px;
+  color: #FF993C;
+  border: 1px solid #FF993C;
+}
+
+.bt-save {
+  width: 160px;
+  height: 48px;
+  border-radius: 8px;
+  color: #FFFFFF;
+  background: #FF993C;
+  margin-left: 24px;
+  border: none;
+}

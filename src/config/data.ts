@@ -8,6 +8,7 @@ export const dataService = [
     NgayApDung: '14/04/2021 08:00:00',
     NgayHetHan: '14/04/2021 08:00:00',
     GiaVe: "90.000 VNĐ",
+    GiaComBo: '360.000 VNĐ/4 Vé',
     TinhTrang: 1,
     Action: '',
   },
@@ -19,6 +20,7 @@ export const dataService = [
     NgayApDung: '14/04/2021 08:00:00',
     NgayHetHan: '14/04/2021 08:00:00',
     GiaVe: "90.000 VNĐ",
+    GiaComBo: '360.000 VNĐ/4 Vé',
     TinhTrang: 2,
     Action: '',
   }, {
@@ -29,6 +31,7 @@ export const dataService = [
     NgayApDung: '14/04/2021 08:00:00',
     NgayHetHan: '14/04/2021 08:00:00',
     GiaVe: "90.000 VNĐ",
+    GiaComBo: '360.000 VNĐ/4 Vé',
     TinhTrang: 1,
     Action: '',
   }

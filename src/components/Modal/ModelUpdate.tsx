@@ -1,6 +1,7 @@
 import { Button, Checkbox, Col, DatePicker, Input, Modal, Radio, Row, Select } from 'antd';
 import { FC, useState } from 'react';
 import Icon_edit from '../../images/Icon_edit.png';
+import StylingCalendar from '../calendar/StyledCalendar';
 
 const Option = Select.Option;
 
@@ -40,16 +41,11 @@ const ModelUpdate: FC = () => {
         <Row style={{ marginTop: 25 }}>
           <Col span={12}>
             <Col span={24} style={{ fontWeight: 600, fontSize: 16 }}>
-              Mã sự kiện
-              <span
-              style={{ color: "#FD5959", margin: "0px 4px", fontWeight: 600 }}
-            >*</span>
+              Mã sự kiện<span className='star-red'>*</span>
             </Col>
+
             <Col span={24} style={{ marginTop: 5 }}>
-              <Input
-                style={{ width: 245, height: 40, border: '1px solid #A5A8B1', borderRadius: 8, fontSize: 20 }}
-                placeholder="Nhập Mã sự kiện"
-              />
+              <Input className="molde-input" placeholder="Nhập Mã sự kiện" />
             </Col>
           </Col>
 
@@ -59,98 +55,74 @@ const ModelUpdate: FC = () => {
             </Col>
             <Col span={24} style={{ marginTop: 5 }}>
               <Input
-                style={{ width: 355, height: 40, border: '1px solid #A5A8B1', borderRadius: 8, fontSize: 20 }}
+                className="molde-input"
+                style={{ width: 355 }}
                 placeholder="Nhập Tên sự kiện"
               />
             </Col>
           </Col>
         </Row>
 
+
         <Row style={{ marginTop: 25 }}>
           <Col span={12}>
             <Row >
               <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày áp dụng</Col>
-              <Col span={12}><DatePicker size="large" /></Col>
-              <Col span={12}><DatePicker size="large" /></Col>
-            </Row>
-          </Col>
-          <Col span={12}>
-            <Row >
-              <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày hết hạn</Col>
-              <Col span={12}><DatePicker size="large" /></Col>
-              <Col span={12}><DatePicker size="large" /></Col>
+              <Col span={10}>
+                <StylingCalendar />
+              </Col>
+              <Col span={12}>
+                <DatePicker
+                  size="large"
+                  picker='time'
+                  placeholder="hh:mm:ss"
+                  className="input-calendar"
+                />
+              </Col>
             </Row>
           </Col>
 
+          <Col span={12}>
+            <Row >
+              <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày áp dụng</Col>
+              <Col span={10}>
+                <StylingCalendar />
+              </Col>
+              <Col span={12}>
+                <DatePicker
+                  size="large"
+                  picker='time'
+                  placeholder="hh:mm:ss"
+                  className="input-calendar"
+                />
+              </Col>
+            </Row>
+          </Col>
         </Row>
 
         <Row style={{ marginTop: 25 }}>
           <Col span={24} style={{ fontWeight: 600 }}>
             Giá vé áp dụng
           </Col>
+
           <Col span={24}>
-            <Checkbox
-              style={{ fontSize: 16 }}
-              onChange={onChange}
-            >
+            <Checkbox style={{ fontSize: 16 }} onChange={onChange}>
+              <span> Vé lẻ (vnđ/vé) với giá</span>
               <span>
-                Vé lẻ (vnđ/vé) với giá
-              </span>
-              <span>
-                <Input
-                  style={{
-                    width: 148,
-                    height: 40,
-                    border: 'none',
-                    borderRadius: 8,
-                    fontSize: 16,
-                    fontWeight: 500,
-                    background: '#F1F4F8',
-                    margin: '0px 8px'
-                  }}
-                  placeholder="Giá vé"
-                />
+                <Input className="molde-input-money" type='number' placeholder="Giá vé" disabled />
                 <span >/ vé</span>
               </span>
             </Checkbox>
           </Col>
+
           <Col span={24}>
-            <Checkbox
-              style={{ fontSize: 16, marginTop: 12 }}
-              onChange={onChange}
-            >
+            <Checkbox style={{ fontSize: 16, marginTop: 12 }} onChange={onChange}>
+              <span> Combo vé với giá </span>
               <span>
-                Combo vé với giá
-              </span>
-              <span>
-                <Input
-                  style={{
-                    width: 148,
-                    height: 40,
-                    border: 'none',
-                    borderRadius: 8,
-                    fontSize: 16,
-                    fontWeight: 500,
-                    background: '#F1F4F8',
-                    margin: '0px 8px'
-                  }}
-                  placeholder="Giá vé"
-                />
+                <Input className="molde-input-money" type='number' placeholder="Giá vé" />
                 <span>/</span>
-                <Input
-                  style={{
-                    width: 72,
-                    height: 40,
-                    border: 'none',
-                    borderRadius: 8,
-                    fontSize: 16,
-                    fontWeight: 500,
-                    background: '#F1F4F8',
-                    margin: '0px 8px'
-                  }}
-                  placeholder="Giá vé"
-                />
-                <span >/ vé</span>
+                <Input className="molde-input-money" type='number' style={{ width: 80 }} placeholder="Số vé" />
+                <span >vé</span>
               </span>
             </Checkbox>
           </Col>
@@ -160,6 +132,7 @@ const ModelUpdate: FC = () => {
           <Col span={24} style={{ fontWeight: 600 }}>
             Tình trạng
           </Col>
+
           <Col span={24}>
             <Select
               defaultValue={1}
@@ -169,40 +142,23 @@ const ModelUpdate: FC = () => {
               <Option value={2} style={{ fontSize: 16 }}>Hết hạn</Option>
             </Select>
           </Col>
-          <Col span={24} style={{ marginTop: 5 }}>
-            <span
-              style={{ color: "#FD5959", margin: "0px 4px", fontWeight: 600 }}
-            >*</span>
 
-            <span
-              style={{ color: "#1E0D03", opacity: 0.4, margin: "0px 4px" }}
-            >là thông tin bắt buộc </span>
+          <Col span={24} style={{ marginTop: 5 }}>
+            <span className='star-red'>*</span>
+            <span className='font-faint'>
+              là thông tin bắt buộc
+            </span>
           </Col>
         </Row>
 
 
         <Row style={{ marginTop: 30, fontWeight: 600 }}>
           <Col span={24} offset={6}>
-            <Button
-              onClick={() => setVisible(false)}
-              style={{
-                width: '160px',
-                height: '48px',
-                borderRadius: 8,
-                color: '#FF993C',
-                border: '1px solid #FF993C'
-              }}>
+            <Button onClick={() => setVisible(false)} className="bt-cancel">
               Hủy
             </Button>
-            <Button
-              style={{
-                width: '160px',
-                height: '48px',
-                borderRadius: 8,
-                color: '#FFFFFF',
-                background: '#FF993C',
-                marginLeft: 24
-              }}>
+
+            <Button className="bt-save">
               Lưu
             </Button>
           </Col>

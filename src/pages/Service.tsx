@@ -1,11 +1,11 @@
-import { Button, Layout, Table, Tag } from 'antd';
+import { Button, Layout, Table } from 'antd';
 import { FC } from 'react';
-import Icon_sreach from '../images/Icon_sreach.png';
-import Icon_edit from '../images/Icon_edit.png';
+import ModelCreate from '../components/Modal/ModelCreate';
 import { columnsService } from '../config/colums';
 import { dataService } from '../config/data';
-import ModelCreate from '../components/Modal/ModelCreate';
+import Icon_sreach from '../images/Icon_sreach.png';
 const { Content } = Layout;
+
 const Service: FC = () => {
 
   return (

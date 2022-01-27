@@ -2,7 +2,9 @@ import { Area, Pie } from '@ant-design/plots';
 import { Card, Col, DatePicker, Layout, Row } from 'antd';
 import { FC } from 'react';
 import { configArea, configPie } from '../config/chart';
-import { dataArea, dataPie } from '../config/data';
+import { dataArea } from '../config/data';
+import StylingCalendar from '../components/calendar/StyledCalendar';
+
 const { Content } = Layout;
 
 const Home: FC = () => {
@@ -11,15 +13,17 @@ const Home: FC = () => {
     <Content
       className="site-layout-conten"
       style={{
-        marginRight: '33px',
         padding: 24,
         minHeight: 280,
+        marginRight: 33,
+
       }}
     >
-      <Card title="Thống kê" bordered={false} style={{ fontSize: 20, borderRadius: 24, marginTop: 24 }}>
+      <Card title="Thống kê" bordered={false} style={{ fontSize: 20, borderRadius: 24}}>
+        
         <Row style={{ display: 'flex', justifyContent: 'space-between', marginRight: 30 }}>
           <span style={{ fontWeight: 600, fontSize: '18px', lineHeight: '28px' }}>Doanh Thu</span>
-          <span><DatePicker size="large" /></span>
+          <span><StylingCalendar /></span>
         </Row>
 
         <Row style={{ marginTop: "40px" }}>
@@ -43,7 +47,7 @@ const Home: FC = () => {
 
         <Row style={{ marginTop: "40px" }}>
           <Col span={3}>
-            <span><DatePicker size="large" /></span>
+            <span><StylingCalendar /></span>
           </Col>
 
           <Col span={8}>
