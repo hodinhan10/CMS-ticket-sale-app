@@ -128,7 +128,11 @@
   opacity: 0.8;
 }
 
-
+.bt-bold-18 {
+  width: 127px;
+  font-weight: 'bold';
+  font-size: 18px,
+}
 
 /* ----- Button ----- */
 
@@ -222,5 +226,13 @@
   color: #FFFFFF;
   background: #FF993C;
   margin-left: 24px;
+  border: none;
+}
+
+.Input-sreach {
+  width: 446px;
+  height: 48px;
+  background: #F7F7F8;
+  border-radius: 8px;
   border: none;
 }

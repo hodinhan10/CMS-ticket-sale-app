@@ -5,7 +5,6 @@ import HeaderWeb from './components/section/Header';
 import SiderWeb from './components/section/Sider';
 import CheckingTicket from './pages/CheckingTicket';
 import Home from './pages/Home';
-import Login from './pages/Login';
 import Service from './pages/Service';
 import TicketManage from './pages/TicketManage';
 
@@ -23,7 +22,6 @@ const App = () => {
 
         <Switch>
           <Route path="/" component={Home} exact />
-          <Route path="/login" component={Login} exact />
           <Route path="/ticket-manage" component={TicketManage} exact />
           <Route path="/checking-ticket" component={CheckingTicket} exact />
           <Route path="/setting/service" component={Service} exact />

@@ -161,3 +161,21 @@ td button .ant-btn-text span {
 .input-calendar .anticon {
   font-size: 22px
 }
+
+.ant-picker-date-panel .ant-picker-content th {
+  color: #C55E00;
+  font-weight: 600;
+  font-size: 18px;
+}
+/* ticketMâng */
+.ant-tabs-tab {
+  font-size:16px;
+}
+
+.ant-input {
+ font-Size:16px !important;
+}
+
+.ant-input-affix-wrapper>input.ant-input {
+  background: #F7F7F8;
+}

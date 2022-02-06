@@ -20,7 +20,7 @@ const ModelCreate: FC = () => {
   return (
     <>
       <Button
-        type="ghost" style={{ color: "#ffffff", background: "#FF993C", border: "1px solid #FF993C" }}
+        type="ghost" style={{ color: "#ffffff", background: "#FF993C", border: "1px solid #FF993C",fontWeight: 'bold', fontSize: 18 }}
         onClick={() => setVisible(true)}>
         Thêm gói vé
       </Button>

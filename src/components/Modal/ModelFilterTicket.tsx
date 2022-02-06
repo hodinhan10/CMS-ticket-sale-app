@@ -9,16 +9,27 @@ const ModelFilterTicket: FC = () => {
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState(1);
 
+  const [checkAll, setCheckAll] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  const hanleCheckAll = (e:any) => {
+    setCheckAll(e.target.checked)
+    setDisabled(!disabled)
+  }
+
   function onChange(checkedValues: any) {
     console.log('checked = ', checkedValues);
   }
 
   return (
     <>
-      <Button className="card-button-img" onClick={() => setVisible(true)}>
-        <img src={Icon_fitter} alt="" style={{ marginRight: "4px" }} />
-        Lọc vé
-      </Button>
+      <Button
+        className="bt-bold-18"
+        icon={<img src={Icon_fitter} style={{ marginRight: '5px' }} />}
+        style={{ width: 127, fontWeight: 'bold', fontSize: 18, }}
+        onClick={() => setVisible(true)}
+      >lọc vé</Button>
+  
       <Modal
         title="Lọc vé"
         visible={visible}
@@ -28,7 +39,7 @@ const ModelFilterTicket: FC = () => {
         style={{ fontSize: 16 }}
         footer={null}
       >
-
+        
         <Row>
           <Col span={12}>
             <Row style={{ fontWeight: 600 }}> Từ ngày</Row>
@@ -47,31 +58,31 @@ const ModelFilterTicket: FC = () => {
           <Col span={24} style={{ marginTop: 5 }}>
             <RadioGroup
               onChange={(e) => setValue(e.target.value)} value={value}
-              style={{ display: 'flex', justifyContent: 'space-between'}}
+              style={{ display: 'flex', justifyContent: 'space-between' }}
             >
-              <Radio value={1}>Tất cả</Radio>
-              <Radio value={2}>Đã sự dụng</Radio>
-              <Radio value={3}>Chưa sự dụng</Radio>
-              <Radio value={4}>Hết hạn</Radio>
+              <Radio value={0}>Tất cả</Radio>
+              <Radio value={1}>Đã sự dụng</Radio>
+              <Radio value={2}>Chưa sự dụng</Radio>
+              <Radio value={3}>Hết hạn</Radio>
             </RadioGroup>
           </Col>
         </Row>
 
-        <Row style={{ marginTop: 20}}>
-          <Col span={24} style={{fontWeight: 600}}>
+        <Row style={{ marginTop: 20 }}>
+          <Col span={24} style={{ fontWeight: 600 }}>
             Cổng check-in
           </Col>
           <Col span={24}>
             <Checkbox.Group onChange={onChange} style={{ marginTop: 5, fontSize: 16 }}>
               <Row style={{ marginTop: 5, width: '600px' }}>
-                <Col span={8}><Checkbox value="0">Tất cả</Checkbox></Col>
-                <Col span={8}><Checkbox value="1">Cổng 1</Checkbox></Col>
-                <Col span={8}><Checkbox value="2">Cổng 2</Checkbox></Col>
+                <Col span={8}><Checkbox value="0" onChange={hanleCheckAll}>Tất cả</Checkbox></Col>
+                <Col span={8}><Checkbox value="1" disabled={disabled} checked={false}>Cổng 1</Checkbox></Col>
+                <Col span={8}><Checkbox value="2" disabled={disabled}>Cổng 2</Checkbox></Col>
               </Row>
               <Row style={{ marginTop: 5 }}>
-                <Col span={8}><Checkbox value="3">Cổng 3</Checkbox></Col>
-                <Col span={8}><Checkbox value="4">Cổng 4</Checkbox></Col>
-                <Col span={8}><Checkbox value="5">Cổng 5</Checkbox></Col>
+                <Col span={8}><Checkbox value="3" disabled={disabled}>Cổng 3</Checkbox></Col>
+                <Col span={8}><Checkbox value="4" disabled={disabled}>Cổng 4</Checkbox></Col>
+                <Col span={8}><Checkbox value="5" disabled={disabled}>Cổng 5</Checkbox></Col>
               </Row>
             </Checkbox.Group>
           </Col>

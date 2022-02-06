@@ -1,13 +1,15 @@
+// import { Area, Pie } from '@ant-design/plots';
 import { Area, Pie } from '@ant-design/plots';
-import { Card, Col, DatePicker, Layout, Row } from 'antd';
+import { Card, Col, Layout, Row } from 'antd';
 import { FC } from 'react';
+import StylingCalendar from '../components/calendar/StyledCalendar';
 import { configArea, configPie } from '../config/chart';
 import { dataArea } from '../config/data';
-import StylingCalendar from '../components/calendar/StyledCalendar';
-
 const { Content } = Layout;
 
 const Home: FC = () => {
+
+
 
   return (
     <Content

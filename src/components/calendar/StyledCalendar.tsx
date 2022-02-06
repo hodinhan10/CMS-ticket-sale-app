@@ -4,14 +4,22 @@ import {
   RightOutlined
 } from '@ant-design/icons';
 import { Calendar, Col, Input, Popover, Radio, Row, Select } from 'antd';
-import { FC } from 'react';
+import moment from 'moment';
+import { FC, useState } from 'react';
+import dayjs from "dayjs"
 
+
+// moment.updateLocale('en', {
+//   weekdaysMin : ["CN", "T2", "T3", "T4", "T5", "T6", "T7"]
+// });
 
 const ModelCreate: FC = () => {
-
+  const [date, setDate] = useState(dayjs());
+    // console.log('date',date.add)
   function onPanelChange(value: any, mode: any) {
-    console.log(value, mode);
+    // console.log(value, mode);
   }
+
   const content = (
     <div
       className="site-calendar-customize-header-wrapper"
@@ -21,20 +29,15 @@ const ModelCreate: FC = () => {
       }}>
       <Calendar
         fullscreen={false}
+        // validRange={[dayjs(props.params.startDate), dayjs(props.params.endDate)]
+        // value={date}
         headerRender={({ value, type, onChange, onTypeChange }) => {
           const start = 0;
           const end = 12;
           const monthOptions = [];
-
-          // const current = value.clone();
-          // const localeData = value.localeData();
-          // const months =[]
+          // value._locale._weekdaysMin
           const months = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-          // for (let i = 0; i < 12; i++) {
-          //   current.month(i);
-          //   months.push(localeData.monthsShort(current));
-          // }
-
+          // console.log('value',value.locale)
           for (let index = start; index < end; index++) {
             monthOptions.push(
               <Select.Option className="month-item" key={`${index}`}>
@@ -44,7 +47,7 @@ const ModelCreate: FC = () => {
           }
 
           const month = value.month();
-
+          // console.log('month', month)
           const year = value.year();
           const options = [];
           for (let i = year - 10; i < year + 10; i += 1) {
@@ -58,14 +61,14 @@ const ModelCreate: FC = () => {
             <div style={{ padding: 8 }}>
               <Row gutter={8} style={{ fontSize: 18, fontWeight: 'bold' }}>
                 <Col>
-                  <LeftOutlined />
+                  <LeftOutlined onClick={() => setDate(date.add(-2, 'months'))}/>
                 </Col>
 
                 <Col >
                   Tháng 4, 2021
                 </Col>
 
-                {/* <Col>
+                <Col>
                 <Select
                   size="small"
                   dropdownMatchSelectWidth={false}
@@ -79,26 +82,10 @@ const ModelCreate: FC = () => {
                 >
                   {monthOptions}
                 </Select>
-              </Col> */}
-
-                {/* <Col>
-                <Select
-                  size="small"
-                  dropdownMatchSelectWidth={false}
-                  className="my-year-select"
-                  showArrow={false}
-                  onChange={(newYear: any) => {
-                    const now = value.clone().year(newYear);
-                    onChange(now);
-                  }}
-                  value={String(year)}
-                >
-                  {options}
-                </Select>
-              </Col> */}
+              </Col>
 
                 <Col>
-                  <RightOutlined />
+                  <RightOutlined onClick={() => setDate(date.add(2, 'months'))} />
                 </Col>
               </Row>
               <Row >
@@ -128,11 +115,11 @@ const ModelCreate: FC = () => {
     <div>
       <Popover placement="bottomRight" content={content} trigger="click">
         <Input
-        className="input-calendar"
+          className="input-calendar"
           placeholder="DD/MM/YYYY"
-          style={{  borderRadius: 8 }}
+          style={{ borderRadius: 8 }}
           suffix={
-            <CalendarOutlined 
+            <CalendarOutlined
               style={{ color: '#FF993C' }}
             />
           }
@@ -145,3 +132,35 @@ const ModelCreate: FC = () => {
 
 
 export default ModelCreate;
+
+{/* <Col>
+                <Select
+                  size="small"
+                  dropdownMatchSelectWidth={false}
+                  value={String(month)}
+                  showArrow={false}
+                  onChange={selectedMonth => {
+                    const newValue = value.clone();
+                    newValue.month(parseInt(selectedMonth, 10));
+                    onChange(newValue);
+                  }}
+                >
+                  {monthOptions}
+                </Select>
+              </Col> */}
+
+{/* <Col>
+                <Select
+                  size="small"
+                  dropdownMatchSelectWidth={false}
+                  className="my-year-select"
+                  showArrow={false}
+                  onChange={(newYear: any) => {
+                    const now = value.clone().year(newYear);
+                    onChange(now);
+                  }}
+                  value={String(year)}
+                >
+                  {options}
+                </Select>
+              </Col> */}

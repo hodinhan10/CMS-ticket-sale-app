@@ -1,41 +1,42 @@
 import { Tag } from 'antd';
+import ModelChangeDate from '../components/Modal/ModelChangeDate';
 import ModelUpdate from '../components/Modal/ModelUpdate';
 
 export const columnsCheckingTicket = [
   {
     title: 'STT',
-    dataIndex: 'STT',
-    key: 'STT',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'id',
+    key: 'id',
+    render: (text: any, record: any, index: any) => <span>{index + 1}</span>,
   },
   {
     title: 'Số vé',
-    dataIndex: 'SoVe',
-    key: 'SoVe',
+    dataIndex: 'TicketNember',
+    key: 'TicketNember',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Ngày áp dụng',
-    dataIndex: 'NgayApDung',
-    key: 'NgayApDung',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: '',
+    key: '',
+    render: (text: any) => <span>14/2/2021</span>,
   },
   {
     title: 'Tên Loại vé',
-    dataIndex: 'TenLoaiVe',
-    key: 'TenLoaiVe',
+    dataIndex: 'TicketName',
+    key: 'TicketName',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Cổng check In',
-    dataIndex: 'CongCheckIn',
-    key: 'CongCheckIn',
+    dataIndex: 'CheckIn',
+    key: 'CheckIn',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: '',
-    dataIndex: 'TinhTrang',
-    key: 'TinhTrang',
+    dataIndex: 'UsageStatus',
+    key: 'UsageStatus',
     render: (tags: any) => (
       <span  >
         {tags === 1 ?
@@ -62,9 +63,9 @@ export const columnsCheckingTicket = [
 export const columnsTicketManage = [
   {
     title: 'STT',
-    dataIndex: 'STT',
-    key: 'STT',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'id',
+    key: 'id',
+    render: (text: any, record: any, index: any) => <span>{index + 1}</span>,
   },
   {
     title: 'Booking Code',
@@ -74,43 +75,28 @@ export const columnsTicketManage = [
   },
   {
     title: 'Số vé',
-    dataIndex: 'SoVe',
-    key: 'SoVe',
-    render: (text: any) => <span>{text}</span>,
-  },
-  {
-    title: 'Tên sự kiện',
-    dataIndex: 'TenSuKien',
-    key: 'TenSuKien',
+    dataIndex: 'TicketNember',
+    key: 'TicketNember',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Tình trạng sử dụng',
-    key: 'TinhTrangSuDung',
-    dataIndex: 'TinhTrangSuDung',
+    key: 'UsageStatus',
+    dataIndex: 'UsageStatus',
     render: (tags: any) => (
       <span  >
         {tags === 1 ?
-          <Tag
-            className="bt-tag button-green"
-          // style={{ background: "#EAF1F8", color: '#03AC00', border: '1px solid #03AC00' }}
-
-          >
+          <Tag className="bt-tag button-green">
             <span className="status green"></span>
             Chưa sự dụng
           </Tag>
 
           : tags === 2 ?
-            <Tag
-              className="bt-tag button-gray"
-            >
+            <Tag className="bt-tag button-gray">
               <span className="status gray"></span>
               Đã sự dụng
             </Tag>
-            :
-            <Tag
-              className="bt-tag button-red"
-            >
+            : <Tag className="bt-tag button-red">
               <span className="status red"></span>
               Hết hạn
             </Tag>
@@ -120,24 +106,87 @@ export const columnsTicketManage = [
   },
   {
     title: 'Ngày sự dụng',
-    dataIndex: 'NgaySuDung',
-    key: 'NgaySuDung',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'DateUsed',
+    key: 'DateUsed',
+    render: (text: any) => <ModelChangeDate >{text}</ModelChangeDate>,
   },
   {
     title: 'Ngày xuất vé',
-    dataIndex: 'NgayXuatVe',
-    key: 'NgayXuatVe',
+    dataIndex: 'DateTicket',
+    key: 'DateTicket',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Cổng check in',
-    dataIndex: 'CongCheckIn',
-    key: 'CongCheckIn',
+    dataIndex: 'CheckIn',
+    key: 'CheckIn',
     render: (text: any) => <span>{text}</span>,
   }
 ];
 
+export const columnsTicketFamily = [
+  {
+    title: 'STT',
+    dataIndex: 'id',
+    key: 'id',
+    render: (text: any, record: any, index: any) => <span>{index + 1}</span>,
+  },
+  {
+    title: 'Booking Code',
+    dataIndex: 'BookingCode',
+    key: 'BookingCode',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
+    title: 'Tên sự kiện',
+    dataIndex: 'eventName',
+    key: 'eventName',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
+    title: 'Tình trạng sử dụng',
+    key: 'UsageStatus',
+    dataIndex: 'UsageStatus',
+    render: (tags: any) => (
+      <span  >
+        {tags === 1 ?
+          <Tag className="bt-tag button-green">
+            <span className="status green"></span>
+            Chưa sự dụng
+          </Tag>
+
+          : tags === 2 ?
+            <Tag className="bt-tag button-gray">
+              <span className="status gray"></span>
+              Đã sự dụng
+            </Tag>
+            : <Tag className="bt-tag button-red">
+              <span className="status red"></span>
+              Hết hạn
+            </Tag>
+        }
+      </span>
+    ),
+  },
+  {
+    title: 'Ngày sự dụng',
+    dataIndex: 'DateUsed',
+    key: 'DateUsed',
+    render: (text: any) => <ModelChangeDate >{text}</ModelChangeDate>,
+  },
+  {
+    title: 'Ngày xuất vé',
+    dataIndex: 'DateTicket',
+    key: 'DateTicket',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
+    title: 'Cổng check in',
+    dataIndex: 'CheckIn',
+    key: 'CheckIn',
+    render: (text: any) => <span>{text}</span>,
+  }
+];
 
 
 export const columnsService = [
