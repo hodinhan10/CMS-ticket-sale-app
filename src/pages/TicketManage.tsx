@@ -2,24 +2,39 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Layout, Row, Table, Tabs } from 'antd';
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import ModelFilterTicket from '../components/Modal/ModelFilterTicket';
 import { columnsTicketFamily, columnsTicketManage } from '../config/colums';
 import { RootState } from '../store';
+
 import { getTicketMn } from '../store/actions/TicketManageActions';
 const { Content } = Layout;
 const { TabPane } = Tabs;
-const TicketManage: FC = () => {
 
+type Props = {
+  [key: string]: any;
+};
+
+const TicketManage: FC = (props: Props) => {
+  const {
+    checkIn = 0,
+    status = 0,
+    dayUsed=''
+  }: any = useParams();
+  // console.log('view', status)
+  // console.log('view', checkIn)
   function callback(key: any) {
     console.log(key);
   }
- 
+  
+  // let statusNumber = Number(status);
   const { ticket } = useSelector((state: RootState) => state.ticket);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTicketMn());
-  }, []);
+    dispatch(getTicketMn({ checkIn, status, dayUsed }));
+  }, [dispatch, checkIn, status, dayUsed]);
+
 
   return (
     <Content
@@ -45,7 +60,7 @@ const TicketManage: FC = () => {
               <Col span={12} className="card-header"
                 style={{ display: 'flex', justifyContent: 'flex-end' }}
               >
-                <ModelFilterTicket />
+                <ModelFilterTicket {...props} />
 
                 <Button
                   className="bt-fitter"
@@ -61,6 +76,7 @@ const TicketManage: FC = () => {
                   columns={columnsTicketManage}
                   pagination={{ position: ["bottomCenter"] }}
                   dataSource={ticket}
+                  rowKey="id"
                 />
               </Col>
             </Row>
@@ -96,6 +112,7 @@ const TicketManage: FC = () => {
                   columns={columnsTicketFamily}
                   pagination={{ position: ["bottomCenter"] }}
                   dataSource={ticket}
+                  rowKey="id"
                 />
               </Col>
             </Row>

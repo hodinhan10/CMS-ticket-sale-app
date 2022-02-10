@@ -30,7 +30,7 @@ const Home: FC = () => {
 
         <Row style={{ marginTop: "40px" }}>
           <Col span={24}>
-            <Area {...configArea} data={dataArea}/>
+            {/* <Area {...configArea} data={dataArea}/> */}
           </Col>
         </Row>
 
@@ -55,14 +55,14 @@ const Home: FC = () => {
           <Col span={8}>
             <Row style={{ display: 'flex', justifyContent: 'center', marginLeft: '-90px', fontSize: 18, fontWeight: 600 }}>Gói gia đình</Row>
             <Row style={{ display: 'flex', justifyContent: 'center' }}>
-              <Pie {...configPie}  />
+              {/* <Pie {...configPie}  /> */}
             </Row>
           </Col>
 
           <Col span={8}>
             <Row style={{ display: 'flex', justifyContent: 'center', marginLeft: '-100px', fontSize: 18, fontWeight: 600 }}>Gói sự kiện</Row>
             <Row style={{ display: 'flex', justifyContent: 'center' }}>
-              <Pie {...configPie} />
+              {/* <Pie {...configPie} /> */}
             </Row>
           </Col>
 

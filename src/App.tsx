@@ -9,6 +9,7 @@ import Service from './pages/Service';
 import TicketManage from './pages/TicketManage';
 
 const App = () => {
+  
   return (
     <Layout style={{ minHeight: "100vh" }}>
 
@@ -23,7 +24,11 @@ const App = () => {
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/ticket-manage" component={TicketManage} exact />
+          <Route path="/ticket-manage/checkIn/:checkIn/status/:status/dayUsed/:dayUsed" component={TicketManage} exact />
+
           <Route path="/checking-ticket" component={CheckingTicket} exact />
+          <Route path="/checking-ticket/status/:status" component={CheckingTicket} exact />
+          
           <Route path="/setting/service" component={Service} exact />
         </Switch>
       </Layout>

@@ -1,24 +1,42 @@
-import { Button, Layout, Table, Space, Card, Row, Col, Radio, DatePicker, Input } from 'antd';
-import { FC, useEffect, useState } from 'react';
-import { columnsCheckingTicket } from '../config/colums';
-import { dataCheckingTicket } from '../config/data';
-import Icon_sreach from '../images/Icon_sreach.png';
-import StylingCalendar from '../components/calendar/StyledCalendar'
 import { SearchOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Input, Layout, Radio, Row, Space, Table } from 'antd';
+import Form from 'antd/lib/form/Form';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import StylingCalendar from '../components/calendar/StyledCalendar';
+import { columnsCheckingTicket } from '../config/colums';
 import { RootState } from '../store';
 import { getCheckingTicket } from '../store/actions/CheckingTicketAction';
 const { Content } = Layout;
-const CheckingTicket: FC = () => {
-  // đang làm
-  const [value, setValue] = useState(1);
 
-  const { ticket } = useSelector((state: RootState) => state.ticketCheck);
+type Props = {
+  [key: string]: any;
+};
+
+
+const CheckingTicket: FC<Props> = (props) => {
+  // đang làm
+  const {
+    status = 0,
+  }: any = useParams();
+
+  const [usageStatus, setUsageStatus] = useState<number>(0);
+
+  const { ticket, succes } = useSelector((state: RootState) => state.ticketCheck);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCheckingTicket());
-  }, []);
+    // if (succes ) {
+      dispatch(getCheckingTicket({usageStatus}));
+    // }
+  }, [usageStatus]);
+
+  const onFinish = () => {
+    const statusFiter = usageStatus
+    console.log(statusFiter);
+    return props.history.push(`/checking-ticket/status/${statusFiter}`);
+  };
 
   return (
     <Content
@@ -55,6 +73,7 @@ const CheckingTicket: FC = () => {
                   columns={columnsCheckingTicket}
                   pagination={{ position: ["bottomCenter"] }}
                   dataSource={ticket}
+                  rowKey="id"
                 />
               </Col>
             </Row>
@@ -68,44 +87,56 @@ const CheckingTicket: FC = () => {
               fontSize: 16,
               borderRadius: 24
             }}>
-            <Row>
-              <Col span={12}>Tình trạng đổi soát</Col>
-              <Col span={12}>
-                <Radio.Group onChange={(e) => setValue(e.target.value)} value={value} style={{ fontSize: 24 }}>
-                  <Space direction="vertical">
-                    <Radio value={1}>Tất cả</Radio>
-                    <Radio value={2}>Đã đổi soát</Radio>
-                    <Radio value={3}>Chưa đổi soát</Radio>
-                  </Space>
-                </Radio.Group>
-              </Col>
-            </Row><br />
+            <Form
+              name="fitter ticket"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              initialValues={{ remember: true }}
+              onFinish={onFinish}
+              autoComplete="off"
+            >
+              <Row>
+                <Col span={12}>Tình trạng đổi soát</Col>
+                <Col span={12}>
+                  <Radio.Group
+                    value={usageStatus}
+                    onChange={(e) => setUsageStatus(e.target.value)}
+                    style={{ fontSize: 24 }}
+                  >
+                    <Space direction="vertical">
+                      <Radio value={0}>Tất cả</Radio>
+                      <Radio value={1}>Đã đổi soát</Radio>
+                      <Radio value={2}>Chưa đổi soát</Radio>
+                    </Space>
+                  </Radio.Group>
+                </Col>
+              </Row><br />
 
-            <Row>
-              <Col span={12}>Loại vé</Col>
-              <Col span={12}>Vé cổng</Col>
-            </Row><br />
+              <Row>
+                <Col span={12}>Loại vé</Col>
+                <Col span={12}>Vé cổng</Col>
+              </Row><br />
 
-            <Row>
-              <Col span={12}>Từ ngày</Col>
-              <Col span={12}><StylingCalendar /></Col>
-            </Row><br />
+              <Row>
+                <Col span={12}>Từ ngày</Col>
+                <Col span={12}><StylingCalendar /></Col>
+              </Row><br />
 
-            <Row>
-              <Col span={12}>Đến ngày</Col>
-              <Col span={12}><StylingCalendar /></Col>
-            </Row><br /><br />
+              <Row>
+                <Col span={12}>Đến ngày</Col>
+                <Col span={12}><StylingCalendar /></Col>
+              </Row><br /><br />
 
-            <Row className="enter">
-              <Col span={24} offset={8} >
-                <button
-                  className="btn-orange"
-                  style={{ width: '160px', height: '48px', }}>
-                  Lọc
-                </button>
-              </Col>
-            </Row>
-
+              <Row className="enter">
+                <Col span={24} offset={8} >
+                  <button
+                    className="btn-orange"
+                    style={{ width: '160px', height: '48px', }}>
+                    Lọc
+                  </button>
+                </Col>
+              </Row>
+            </Form>
           </Card>
         </Col>
       </Row>

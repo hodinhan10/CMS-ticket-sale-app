@@ -12,15 +12,15 @@ import './styles/antUpdate.css'
 import store from './store';
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       {/* <ConfigProvider locale={vi_VN}> */}
         <Provider store={store}>
           <App />
         </Provider>
       {/* </ConfigProvider> */}
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

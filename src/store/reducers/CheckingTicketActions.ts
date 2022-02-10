@@ -10,6 +10,7 @@ export default (state = initialState, action: TicketManageAction) => {
       case GET_CHECKING_MN:
         return {
           ...state,
+          succes: true,
           ticket: action.payload,
           loaded: true
         }

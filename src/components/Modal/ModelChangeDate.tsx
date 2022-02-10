@@ -1,12 +1,10 @@
-import { Button, Checkbox, Col, DatePicker, Input, Modal, Radio, Row, Select } from 'antd';
+import { Button, Col, Modal, Row } from 'antd';
 import { FC, useState } from 'react';
 import StylingCalendar from '../calendar/StyledCalendar';
 
-const Option = Select.Option;
 
 const ModelChangeDate: FC = (props) => {
   const [visible, setVisible] = useState(false);
-  const [value, setValue] = useState(1);
 
   function onChange(checkedValues: any) {
     console.log('checked = ', checkedValues);

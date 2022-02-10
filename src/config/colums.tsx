@@ -124,6 +124,9 @@ export const columnsTicketManage = [
   }
 ];
 
+
+
+
 export const columnsTicketFamily = [
   {
     title: 'STT',
@@ -187,6 +190,8 @@ export const columnsTicketFamily = [
     render: (text: any) => <span>{text}</span>,
   }
 ];
+
+
 
 
 export const columnsService = [
