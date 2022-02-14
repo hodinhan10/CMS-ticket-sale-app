@@ -1,4 +1,5 @@
 export const GET_CHECKING_GROUP = 'GET_CHECKING_GROUP';
+export const GET_CHECKING_GROUP_DETAILS = 'GET_CHECKING_GROUP_DETAILS';
 
 export interface TicketGroup {
     id?: string;
@@ -16,12 +17,22 @@ export interface TicketState {
     loaded: boolean;
 }
 
+export interface TicketStateGroupDetails {
+    ticketGroupDetails: TicketGroup[];
+    loaded: boolean;
+}
+
 interface TicketGroupAction {
     type: typeof GET_CHECKING_GROUP;
     payload: TicketGroup[];
 }
 
-export type TicketAction = TicketGroupAction;
+interface TicketGroupDetailsAction {
+    type: typeof GET_CHECKING_GROUP_DETAILS;
+    payload: TicketGroup;
+}
+
+export type TicketAction = TicketGroupAction | TicketGroupDetailsAction;
 
 
 

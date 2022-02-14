@@ -7,7 +7,7 @@ import { TicketManageAction, GET_CHECKING_MN } from '../types';
 export const getCheckingTicket = ({ usageStatus }: any): ThunkAction<void, RootState, null, TicketManageAction> => {
   return async dispatch => {
     const statusNumber = Number(usageStatus)
-    console.log(statusNumber, typeof statusNumber)
+    // console.log(statusNumber, typeof statusNumber)
     try {
       db.collection("CheckingTicket")
         .where('UsageStatus', statusNumber === 0 ? '>=' : '==', statusNumber)

@@ -39,7 +39,7 @@ const SiderWeb = () => {
         </Menu.Item>
 
         <Menu.Item key="2" icon={<img src={Icon_manage} />}>
-          <Link to="/ticket-manage">
+          <Link to="/ticket-manage/events">
             Quản lý vé
           </Link>
         </Menu.Item>

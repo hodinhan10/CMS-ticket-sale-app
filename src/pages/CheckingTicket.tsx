@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import StylingCalendar from '../components/calendar/StyledCalendar';
 import { columnsCheckingTicket } from '../config/colums';
+import { SecondsToM_D_Y } from '../config/function';
 import { RootState } from '../store';
 import { getCheckingTicket } from '../store/actions/CheckingTicketAction';
 const { Content } = Layout;
@@ -14,16 +15,14 @@ type Props = {
   [key: string]: any;
 };
 
-
 const CheckingTicket: FC<Props> = (props) => {
-  // đang làm
   const {
     status = 0,
   }: any = useParams();
 
   const [usageStatus, setUsageStatus] = useState<number>(0);
 
-  const { ticket, succes } = useSelector((state: RootState) => state.ticketCheck);
+  const { ticket } = useSelector((state: RootState) => state.ticketCheck);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,10 +30,11 @@ const CheckingTicket: FC<Props> = (props) => {
       dispatch(getCheckingTicket({usageStatus}));
     // }
   }, [usageStatus]);
+  // console.log(SecondsToM_D_Y(1642179600))
 
   const onFinish = () => {
     const statusFiter = usageStatus
-    console.log(statusFiter);
+    // console.log(statusFiter);
     return props.history.push(`/checking-ticket/status/${statusFiter}`);
   };
 

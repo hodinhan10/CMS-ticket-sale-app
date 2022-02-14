@@ -1,6 +1,8 @@
+import { MoreOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 import ModelChangeDate from '../components/Modal/ModelChangeDate';
 import ModelUpdate from '../components/Modal/ModelUpdate';
+import { SecondsToM_D_Y } from './function';
 
 export const columnsCheckingTicket = [
   {
@@ -17,9 +19,9 @@ export const columnsCheckingTicket = [
   },
   {
     title: 'Ngày áp dụng',
-    dataIndex: '',
-    key: '',
-    render: (text: any) => <span>14/2/2021</span>,
+    dataIndex: 'DateUsed',
+    key: 'DateUsed',
+    render: (text: any) => <span>{SecondsToM_D_Y(text.seconds)}</span>,
   },
   {
     title: 'Tên Loại vé',
@@ -108,19 +110,24 @@ export const columnsTicketManage = [
     title: 'Ngày sự dụng',
     dataIndex: 'DateUsed',
     key: 'DateUsed',
-    render: (text: any) => <ModelChangeDate >{text}</ModelChangeDate>,
+    render: (text: any) => <span >{SecondsToM_D_Y(text.seconds)}</span>,
   },
   {
     title: 'Ngày xuất vé',
     dataIndex: 'DateTicket',
     key: 'DateTicket',
-    render: (text: any) => <span>{text}</span>,
+    render: (text: any) => <span>{SecondsToM_D_Y(text.seconds)}</span>,
   },
   {
     title: 'Cổng check in',
     dataIndex: 'CheckIn',
     key: 'CheckIn',
     render: (text: any) => <span>{text}</span>,
+  },
+  {
+    dataIndex: 'id',
+    key: 'id',
+    render: (text: any) =>  <ModelChangeDate id={text}><MoreOutlined /></ModelChangeDate>,
   }
 ];
 
@@ -175,13 +182,13 @@ export const columnsTicketFamily = [
     title: 'Ngày sự dụng',
     dataIndex: 'DateUsed',
     key: 'DateUsed',
-    render: (text: any) => <ModelChangeDate >{text}</ModelChangeDate>,
+    render: (text: any) => <ModelChangeDate >{SecondsToM_D_Y(text.seconds)}</ModelChangeDate>,
   },
   {
     title: 'Ngày xuất vé',
     dataIndex: 'DateTicket',
     key: 'DateTicket',
-    render: (text: any) => <span>{text}</span>,
+    render: (text: any) => <span>{SecondsToM_D_Y(text.seconds)}</span>,
   },
   {
     title: 'Cổng check in',

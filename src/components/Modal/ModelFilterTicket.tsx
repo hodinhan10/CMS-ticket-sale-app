@@ -1,6 +1,6 @@
-import { Button, Checkbox, Col, DatePicker, Form, Modal, Radio, Row } from 'antd';
+import { Button, Checkbox, Col, Form, Modal, Radio, Row } from 'antd';
 import { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { dateToM_D_Y } from '../../config/function';
 import Icon_fitter from '../../images/Icon_fitter.png';
 import StylingCalendar from '../calendar/StyledCalendar';
 
@@ -25,16 +25,13 @@ const ModelFilterTicket: FC<Props> = (props) => {
   }
   // console.log('dayUsed', dayUsed)
 
-  const daytoM_D_Y = (day:string) => {
-    let datearray = day.split("/");
-    return datearray[0] + '-' + datearray[1] + '-' + datearray[2];
-  }
-
   const onFinish = () => {
     const checkInFilter = checkInTicket.includes(0) ? [0] : checkInTicket
     const statusFiter = usageStatus
-    const dayUsedFiter = daytoM_D_Y(dayUsed) 
-    return props.history.push(`/ticket-manage/checkIn/${checkInFilter[0] ? checkInFilter : 0}/status/${statusFiter}/dayUsed/${dayUsedFiter}`) || setVisible(false);
+    const dayUsedFiter = dateToM_D_Y(dayUsed) === '-undefined-undefined' ? 0 :  dateToM_D_Y(dayUsed)
+    const dayEndFiter = dateToM_D_Y(dayEnd) === '-undefined-undefined' ? 0 :  dateToM_D_Y(dayEnd)
+    // dayTicket
+    return props.history.push(`/ticket-manage/events/checkIn/${checkInFilter[0] ? checkInFilter : 0}/status/${statusFiter}/dayUsed/${dayUsedFiter}/dayEnd/${dayEndFiter}`) || setVisible(false);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -74,7 +71,6 @@ const ModelFilterTicket: FC<Props> = (props) => {
               <Row style={{ fontWeight: 600 }}> Từ ngày</Row>
               <Row style={{ marginTop: 5 }}>
                 <StylingCalendar
-                  // key={2}
                   valueDay={dayUsed}
                   setValueDay={setDayUsed}
                 />
@@ -84,7 +80,6 @@ const ModelFilterTicket: FC<Props> = (props) => {
               <Row style={{ fontWeight: 600 }}>Đến ngày</Row>
               <Row style={{ marginTop: 5 }}>
                 <StylingCalendar
-                  // key={1}
                   valueDay={dayEnd}
                   setValueDay={setDayEnd}
                 />

@@ -1,10 +1,11 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Layout, Row, Table, Tabs } from 'antd';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ModelFilterTicket from '../components/Modal/ModelFilterTicket';
 import { columnsTicketFamily, columnsTicketManage } from '../config/colums';
+import db from '../firebase/config';
 import { RootState } from '../store';
 
 import { getTicketMn } from '../store/actions/TicketManageActions';
@@ -16,25 +17,26 @@ type Props = {
 };
 
 const TicketManage: FC = (props: Props) => {
+
   const {
     checkIn = 0,
     status = 0,
-    dayUsed=''
+    dayUsed = 0,
+    dayEnd = 0,
   }: any = useParams();
-  // console.log('view', status)
-  // console.log('view', checkIn)
+
   function callback(key: any) {
     console.log(key);
   }
-  
+
   // let statusNumber = Number(status);
   const { ticket } = useSelector((state: RootState) => state.ticket);
   const dispatch = useDispatch();
+  const [valueSreachEvent, setvalueSreachEvent] = useState('')
 
   useEffect(() => {
-    dispatch(getTicketMn({ checkIn, status, dayUsed }));
-  }, [dispatch, checkIn, status, dayUsed]);
-
+    dispatch(getTicketMn({ checkIn, status, dayUsed, dayEnd, valueSreachEvent }));
+  }, [dispatch, checkIn, status, dayUsed, dayEnd, valueSreachEvent]);
 
   return (
     <Content
@@ -46,11 +48,15 @@ const TicketManage: FC = (props: Props) => {
           onChange={callback}
           style={{ fontSize: 16 }}
         >
+
           {/*  Gói sự kiện */}
           <TabPane tab="Gói sự kiện" key="1">
+            
             <Row style={{ marginTop: 10 }}>
               <Col span={12}>
                 <Input
+                  value={valueSreachEvent}
+                  onChange={(e: any) => setvalueSreachEvent(e.target.value)}
                   placeholder="Tìm bằng số vé"
                   className='Input-sreach'
                   suffix={<SearchOutlined style={{ fontSize: 24 }} />}
@@ -84,6 +90,7 @@ const TicketManage: FC = (props: Props) => {
 
           {/* Gói gia đình */}
           <TabPane tab="Gói gia đình" key="2">
+
             <Row style={{ marginTop: 10 }}>
               <Col span={12}>
                 <Input
@@ -97,7 +104,7 @@ const TicketManage: FC = (props: Props) => {
                 span={12} className="card-header"
                 style={{ display: 'flex', justifyContent: 'flex-end' }}
               >
-                <ModelFilterTicket />
+                <ModelFilterTicket {...props} />
                 <Button
                   className="bt-fitter"
                   style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
@@ -117,6 +124,7 @@ const TicketManage: FC = (props: Props) => {
               </Col>
             </Row>
           </TabPane>
+
         </Tabs>
 
       </Card>
