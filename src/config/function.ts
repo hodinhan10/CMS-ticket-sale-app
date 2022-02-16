@@ -4,6 +4,16 @@ export const dateTooMDY = (day: string) => {
   return datearray[0] + '/' + datearray[1] + '/' + datearray[2];
 }
 
+//  DD-MM-YYYY ====> MM-DD-YYYY
+export const dateTooDMY = (day: string) => {
+  // if (typeof day === 'string') {
+  let datearray = day.split("-");
+  return `${datearray[1] + '-' + datearray[0] + '-' + datearray[2]}`;
+  // } else {
+  //   return day
+  // }
+}
+
 // DD/MM/YYYY  ====>  DD-MM-YYYY 
 export const dateToM_D_Y = (day: string) => {
   let datearray = day.split("/");
@@ -51,4 +61,40 @@ export const SecondsToM_D_Y = (dateNow: number) => {
     date.getFullYear();
 
   return date1
+}
+
+export const SecondsToM_D_Y_h_m_s = (dateNow: number) => {
+  const date = new Date(dateNow * 1000)
+
+  const date1 =
+    ((date.getDate() > 9)
+      ? date.getDate()
+      : ('0' + date.getDate()))
+    + '/' +
+    ((date.getMonth() > 8)
+      ? (date.getMonth() + 1)
+      : ('0' + (date.getMonth() + 1)))
+    + '/' +
+    date.getFullYear()
+    + ' ' +
+    ((date.getHours() > 9)
+      ? date.getHours()
+      : ('0' + date.getHours()))
+    + ':' +
+    ((date.getMinutes() > 9)
+      ? date.getMinutes()
+      : ('0' + date.getMinutes()))
+    + ':' +
+    ((date.getSeconds() > 9)
+      ? date.getSeconds()
+      : ('0' + date.getSeconds()))
+    ;
+
+  return date1
+}
+
+export function formatNumber(n: number) {
+  return n.toFixed(0).replace(/./g, function (c, i, a) {
+    return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "." + c : c;
+  });
 }

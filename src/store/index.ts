@@ -2,13 +2,19 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import  {ticketReducer, ticketGroupDetailsReducer } from './reducers/TicketManageActions';
-import ticketCheckReducer from './reducers/CheckingTicketActions';
+import  {ticketReducer, ticketGroupDetailsReducer, ticketFamilyReducer } from './reducers/TicketManageReducer';
+import {ticketCheckReducer, ticketCheckSelectReducer} from './reducers/CheckingTicketReducer';
+import { serviceReducer } from './reducers/ServiceReducer';
 
 const rootReducer = combineReducers({
-    ticket: ticketReducer,
     ticketCheck: ticketCheckReducer,
+    ticketCheckSelect:ticketCheckSelectReducer,
+    
+    ticket: ticketReducer,
     ticketGroupDetails: ticketGroupDetailsReducer,
+    ticketFamily: ticketFamilyReducer,
+
+    service:serviceReducer,
 });
 
 const store = createStore(

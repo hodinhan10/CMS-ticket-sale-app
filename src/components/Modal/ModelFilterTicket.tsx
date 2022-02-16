@@ -98,8 +98,8 @@ const ModelFilterTicket: FC<Props> = (props) => {
                 style={{ display: 'flex', justifyContent: 'space-between' }}
               >
                 <Radio value={0}>Tất cả</Radio>
-                <Radio value={1}>Đã sự dụng</Radio>
-                <Radio value={2}>Chưa sự dụng</Radio>
+                <Radio value={1}>Chưa sự dụng</Radio>
+                <Radio value={2}>Đã sự dụng</Radio>
                 <Radio value={3}>Hết hạn</Radio>
               </RadioGroup>
             </Col>

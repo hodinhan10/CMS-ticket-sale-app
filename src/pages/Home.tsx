@@ -1,11 +1,8 @@
 // import { Area, Pie } from '@ant-design/plots';
-import { Area, Pie } from '@ant-design/plots';
 import { Card, Col, Layout, Row } from 'antd';
 import { FC } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import StylingCalendar from '../components/calendar/StyledCalendar';
-import { configArea, configPie } from '../config/chart';
-import { dataArea } from '../config/data';
 import DonutChart from './DonutChart';
 const { Content } = Layout;
 

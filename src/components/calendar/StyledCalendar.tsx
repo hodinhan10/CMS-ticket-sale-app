@@ -30,6 +30,7 @@ const StylingCalendar: FC<Props> = (props) => {
   const handleDayClick = (day: any) => {
     setValue(day);
     setValueSave(day);
+    // props.setValueDay(day.format("DD/MM/YYYY"))
     props.setValueDay(day.format("MM/DD/YYYY"))
   }
 

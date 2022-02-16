@@ -27,7 +27,7 @@ const App = () => {
           <Route path="/ticket-manage/events/checkIn/:checkIn/status/:status/dayUsed/:dayUsed/dayEnd/:dayEnd" component={TicketManage} exact />
              
           <Route path="/checking-ticket" component={CheckingTicket} exact />
-          <Route path="/checking-ticket/status/:status" component={CheckingTicket} exact />
+          <Route path="/checking-ticket/status/:status/dayStart/:dayStart/dayEnd/:dayEnd/select/:select" component={CheckingTicket} exact />
           
           <Route path="/setting/service" component={Service} exact />
         </Switch>

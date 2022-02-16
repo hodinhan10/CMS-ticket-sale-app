@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ModelFilterTicket from '../components/Modal/ModelFilterTicket';
 import { columnsTicketFamily, columnsTicketManage } from '../config/colums';
+import { CSVLink } from "react-csv";
 import db from '../firebase/config';
 import { RootState } from '../store';
 
-import { getTicketMn } from '../store/actions/TicketManageActions';
+import { getTicketFamily, getTicketMn } from '../store/actions/TicketManageActions';
+import { headersMn } from '../config/data';
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
@@ -31,12 +33,18 @@ const TicketManage: FC = (props: Props) => {
 
   // let statusNumber = Number(status);
   const { ticket } = useSelector((state: RootState) => state.ticket);
+  const { ticket: ticketFamily } = useSelector((state: RootState) => state.ticketFamily);
   const dispatch = useDispatch();
   const [valueSreachEvent, setvalueSreachEvent] = useState('')
+  const [valueSreachFamily, setvalueSreachFamily] = useState('')
+  // console.log('ticketFamily', ticketFamily)
 
   useEffect(() => {
     dispatch(getTicketMn({ checkIn, status, dayUsed, dayEnd, valueSreachEvent }));
+    dispatch(getTicketFamily({ checkIn, status, dayUsed, dayEnd, valueSreachFamily }));
   }, [dispatch, checkIn, status, dayUsed, dayEnd, valueSreachEvent]);
+
+  // console.log('ticket', ticket)  
 
   return (
     <Content
@@ -51,7 +59,7 @@ const TicketManage: FC = (props: Props) => {
 
           {/*  Gói sự kiện */}
           <TabPane tab="Gói sự kiện" key="1">
-            
+
             <Row style={{ marginTop: 10 }}>
               <Col span={12}>
                 <Input
@@ -68,11 +76,16 @@ const TicketManage: FC = (props: Props) => {
               >
                 <ModelFilterTicket {...props} />
 
-                <Button
-                  className="bt-fitter"
-                  style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
-                  Xuất file (.csv)
-                </Button>
+                <CSVLink
+                  data={ticket} headers={headersMn} filename={"my-file.csv"}
+                >
+                  <Button
+                    className="bt-fitter"
+                    style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
+                    Xuất file (.csv)
+                  </Button>
+                </CSVLink>
+
               </Col>
             </Row>
 
@@ -94,6 +107,8 @@ const TicketManage: FC = (props: Props) => {
             <Row style={{ marginTop: 10 }}>
               <Col span={12}>
                 <Input
+                  value={valueSreachFamily}
+                  onChange={(e: any) => setvalueSreachFamily(e.target.value)}
                   placeholder="Tìm bằng số vé"
                   className='Input-sreach'
                   suffix={<SearchOutlined style={{ fontSize: 24 }} />}
@@ -105,11 +120,15 @@ const TicketManage: FC = (props: Props) => {
                 style={{ display: 'flex', justifyContent: 'flex-end' }}
               >
                 <ModelFilterTicket {...props} />
-                <Button
-                  className="bt-fitter"
-                  style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
-                  Xuất file (.csv)
-                </Button>
+
+                <CSVLink
+                  data={ticketFamily} headers={headersMn} filename={"my-file.csv"}>
+                  <Button
+                    className="bt-fitter"
+                    style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
+                    Xuất file (.csv)
+                  </Button>
+                </CSVLink>
               </Col>
             </Row>
 
@@ -118,11 +137,12 @@ const TicketManage: FC = (props: Props) => {
                 <Table
                   columns={columnsTicketFamily}
                   pagination={{ position: ["bottomCenter"] }}
-                  dataSource={ticket}
+                  dataSource={ticketFamily}
                   rowKey="id"
                 />
               </Col>
             </Row>
+
           </TabPane>
 
         </Tabs>

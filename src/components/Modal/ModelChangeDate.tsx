@@ -15,23 +15,26 @@ const ModelChangeDate: FC<Props> = (props) => {
 
   const ticket = useSelector((state: RootState) => state.ticketGroupDetails);
   const { ticketGroupDetails }: any = ticket;
-  // const [DateEnd, setDateEnd] = useState(1)
-  const [DateEnd, setDateEnd] = useState(SecondsToM_D_Y(ticketGroupDetails[0].DateEnd.seconds))
 
-  console.log('DateEnd',DateEnd)
-  console.log('1',SecondsToM_D_Y(ticketGroupDetails[0]?.DateEnd?.seconds))
+  const [DateEnd, setDateEnd] = useState('')
+
+  if (ticketGroupDetails[0]) setDateEnd(SecondsToM_D_Y(ticketGroupDetails[0].DateEnd.seconds))
+  console.log('ticketGroupDetails', ticketGroupDetails)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(detailsTicketEvent(props.id));
-  }, [props.id,DateEnd, dispatch])
-  
+  }, [props.id, DateEnd, dispatch])
+
+
   const onFinish = () => {
     // dispatch(UpdateDayEndTicketEvent(ticketGroupDetails[0]?.DateEnd?.seconds, props.id));
   };
 
+
   const onFinishFailed = (errorInfo: any) => {
     console.log(errorInfo);
   };
+
 
   return (
     <>

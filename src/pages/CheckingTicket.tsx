@@ -1,15 +1,19 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Input, Layout, Radio, Row, Space, Table } from 'antd';
+import { Button, Card, Col, Input, Layout, Radio, Row, Select, Space, Table } from 'antd';
 import Form from 'antd/lib/form/Form';
 import { FC, useEffect, useState } from 'react';
+import { CSVLink } from 'react-csv';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import StylingCalendar from '../components/calendar/StyledCalendar';
 import { columnsCheckingTicket } from '../config/colums';
-import { SecondsToM_D_Y } from '../config/function';
+import { headersTicket } from '../config/data';
+import { dateToM_D_Y, dateTooDMY } from '../config/function';
 import { RootState } from '../store';
-import { getCheckingTicket } from '../store/actions/CheckingTicketAction';
+import { getCheckingTicket, getCheckingTicketCheckbox } from '../store/actions/CheckingTicketAction';
+
 const { Content } = Layout;
+const { Option } = Select;
 
 type Props = {
   [key: string]: any;
@@ -18,24 +22,35 @@ type Props = {
 const CheckingTicket: FC<Props> = (props) => {
   const {
     status = 0,
+    dayStart = 0,
+    dayEnd = 0,
+    select = '0'
   }: any = useParams();
 
   const [usageStatus, setUsageStatus] = useState<number>(0);
+  const [dateStart, setDateStart] = useState<string>('');
+  const [dateEnd, setDateEnd] = useState<string>('');
+  const [valueSreach, setvalueSreach] = useState('')
+  const [valueSelect, setValueSelect] = useState('0')
 
   const { ticket } = useSelector((state: RootState) => state.ticketCheck);
+  const { ticketSelect } = useSelector((state: RootState) => state.ticketCheckSelect);
+
+  // console.log('select', valueSelect)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if (succes ) {
-      dispatch(getCheckingTicket({usageStatus}));
-    // }
-  }, [usageStatus]);
-  // console.log(SecondsToM_D_Y(1642179600))
+    dispatch(getCheckingTicket(status, dayStart, dayEnd, valueSreach, select));
+    dispatch(getCheckingTicketCheckbox())
+  }, [status, dayStart, dayEnd, valueSreach, select]);
 
   const onFinish = () => {
     const statusFiter = usageStatus
-    // console.log(statusFiter);
-    return props.history.push(`/checking-ticket/status/${statusFiter}`);
+    const dateStartFiter = dateToM_D_Y(dateStart) === '-undefined-undefined' ? 0 : dateToM_D_Y(dateStart)
+    const dateEndFiter = dateToM_D_Y(dateEnd) === '-undefined-undefined' ? 0 : dateToM_D_Y(dateEnd)
+    const selectFiter = valueSelect
+    return props.history.push(`/checking-ticket/status/${statusFiter}/dayStart/${dateStartFiter}/dayEnd/${dateEndFiter}/select/${selectFiter}`);
   };
 
   return (
@@ -50,6 +65,8 @@ const CheckingTicket: FC<Props> = (props) => {
             <Row style={{ marginTop: 10 }}>
               <Col span={12}>
                 <Input
+                  value={valueSreach}
+                  onChange={(e: any) => setvalueSreach(e.target.value)}
                   placeholder="Tìm bằng số vé"
                   className='Input-sreach'
                   suffix={<SearchOutlined style={{ fontSize: 24 }} />}
@@ -58,12 +75,26 @@ const CheckingTicket: FC<Props> = (props) => {
 
               <Col span={12} className="card-header"
                 style={{ display: 'flex', justifyContent: 'flex-end' }}>
-
-                <Button
-                  className="bt-fitter"
-                  style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
-                  Xuất file (.csv)
-                </Button>
+                {usageStatus === 2
+                  ?
+                  <Button
+                    style={{
+                      width: 181, fontWeight: 'bold',
+                      fontSize: 18, color: '#FFFFFF', backgroundColor: '#FF993C'
+                    }}
+                  >
+                    Chốt kiểm soát
+                  </Button>
+                  :
+                  <CSVLink
+                    data={ticket} headers={headersTicket} filename={"my-file.csv"}>
+                    <Button
+                      className="bt-fitter"
+                      style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
+                      Xuất file (.csv)
+                    </Button>
+                  </CSVLink>
+                }
               </Col>
             </Row>
 
@@ -82,7 +113,7 @@ const CheckingTicket: FC<Props> = (props) => {
 
         <Col span={6} style={{ marginLeft: 30 }}>
           <Card
-            title="Card"
+            title="Lọc vé"
             style={{
               fontSize: 16,
               borderRadius: 24
@@ -95,6 +126,17 @@ const CheckingTicket: FC<Props> = (props) => {
               onFinish={onFinish}
               autoComplete="off"
             >
+              <Row>
+                <Col span={24}>
+                  <Select defaultValue="0" style={{ width: 360 }} onChange={(e) => setValueSelect(e)}>
+                    <Option value="0" key={0}>Tất cả</Option>
+                    {ticketSelect.map((value: any, index: any) => (
+                      <Option value={value} key={index + 1}>{value}</Option>
+                    ))}
+                  </Select>
+                </Col>
+              </Row><br />
+
               <Row>
                 <Col span={12}>Tình trạng đổi soát</Col>
                 <Col span={12}>
@@ -119,21 +161,32 @@ const CheckingTicket: FC<Props> = (props) => {
 
               <Row>
                 <Col span={12}>Từ ngày</Col>
-                <Col span={12}><StylingCalendar /></Col>
+                <Col span={12}
+                ><StylingCalendar
+                    valueDay={dateStart}
+                    setValueDay={setDateStart}
+                  />
+                </Col>
               </Row><br />
 
               <Row>
                 <Col span={12}>Đến ngày</Col>
-                <Col span={12}><StylingCalendar /></Col>
+                <Col span={12}>
+                  <StylingCalendar
+                    valueDay={dateEnd}
+                    setValueDay={setDateEnd}
+                  />
+                </Col>
               </Row><br /><br />
 
               <Row className="enter">
                 <Col span={24} offset={8} >
-                  <button
+                  <Button
+                    htmlType="submit"
                     className="btn-orange"
                     style={{ width: '160px', height: '48px', }}>
                     Lọc
-                  </button>
+                  </Button>
                 </Col>
               </Row>
             </Form>

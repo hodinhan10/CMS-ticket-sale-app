@@ -2,7 +2,7 @@ import { MoreOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 import ModelChangeDate from '../components/Modal/ModelChangeDate';
 import ModelUpdate from '../components/Modal/ModelUpdate';
-import { SecondsToM_D_Y } from './function';
+import { formatNumber, SecondsToM_D_Y, SecondsToM_D_Y_h_m_s } from './function';
 
 export const columnsCheckingTicket = [
   {
@@ -15,6 +15,12 @@ export const columnsCheckingTicket = [
     title: 'Số vé',
     dataIndex: 'TicketNember',
     key: 'TicketNember',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
+    title: 'Tên sự kiện',
+    dataIndex: 'EventName',
+    key: 'EventName',
     render: (text: any) => <span>{text}</span>,
   },
   {
@@ -79,6 +85,12 @@ export const columnsTicketManage = [
     title: 'Số vé',
     dataIndex: 'TicketNember',
     key: 'TicketNember',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
+    title: 'Tên sự kiện',
+    dataIndex: 'eventName',
+    key: 'eventName',
     render: (text: any) => <span>{text}</span>,
   },
   {
@@ -148,6 +160,12 @@ export const columnsTicketFamily = [
     render: (text: any) => <span>{text}</span>,
   },
   {
+    title: 'Số vé',
+    dataIndex: 'TicketNember',
+    key: 'TicketNember',
+    render: (text: any) => <span>{text}</span>,
+  },
+  {
     title: 'Tên sự kiện',
     dataIndex: 'eventName',
     key: 'eventName',
@@ -204,50 +222,51 @@ export const columnsTicketFamily = [
 export const columnsService = [
   {
     title: 'STT',
-    dataIndex: 'STT',
-    key: 'STT',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'id',
+    key: 'id',
+    render: (text: any, record: any, index: any) => <span>{index + 1}</span>,
   },
   {
     title: 'Mã gói',
-    dataIndex: 'MaGoi',
-    key: 'MaGoi',
+    dataIndex: 'BookingCode',
+    key: 'BookingCode',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Tên gói vé',
-    dataIndex: 'TenGoiVe',
-    key: 'TenGoiVe',
+    dataIndex: 'TicketName',
+    key: 'TicketName',
     render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Ngày áp dụng',
-    dataIndex: 'NgayApDung',
-    key: 'NgayApDung',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'DateUsed',
+    key: 'DateUsed',
+    render: (text: any) => <span>{SecondsToM_D_Y_h_m_s(text.seconds)}</span>,
   },
   {
     title: 'Ngày hết hạn',
-    dataIndex: 'NgayHetHan',
-    key: 'NgayHetHan',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'DateEnd',
+    key: 'DateEnd',
+    render: (text: any) => <span>{SecondsToM_D_Y_h_m_s(text.seconds)}</span>,
   },
   {
     title: 'Giá vé',
-    dataIndex: 'GiaVe',
-    key: 'GiaVe',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'TicketPrice',
+    key: 'TicketPrice',
+    render: (text: any) => <span>{formatNumber(text)}</span>,
+    // render: (text: any) => <span>{text}</span>,
   },
   {
     title: 'Giá Combo',
-    dataIndex: 'GiaComBo',
-    key: 'GiaComBo',
-    render: (text: any) => <span>{text}</span>,
+    dataIndex: 'ComboPrice',
+    key: 'ComboPrice',
+    render: (text: any) => <span>{formatNumber(text.Price)}/{text.Qty}</span>,
   },
   {
     title: 'Tình trạng',
-    key: 'TinhTrang',
-    dataIndex: 'TinhTrang',
+    key: 'Status',
+    dataIndex: 'Status',
     render: (tags: any) => (
       <span  >
         {tags === 1 ?
@@ -269,10 +288,9 @@ export const columnsService = [
     ),
   },
   {
-    title: '',
-    dataIndex: 'Action',
-    key: 'Action',
+    dataIndex: 'id',
+    key: 'id',
     render: (text: any) =>
-      <ModelUpdate />,
+      <ModelUpdate id={text}/>,
   }
 ];

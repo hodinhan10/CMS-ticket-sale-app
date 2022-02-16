@@ -5,8 +5,12 @@ import StylingCalendar from '../calendar/StyledCalendar';
 
 const Option = Select.Option;
 
-const ModelUpdate: FC = () => {
+type Props = {
+  [key: string]: any;
+};
 
+const ModelUpdate: FC<Props> = (props) => {
+  console.log(props.id)
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState(1);
 

@@ -1,12 +1,23 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Layout, Row, Table } from 'antd';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { CSVLink } from 'react-csv';
+import { useDispatch, useSelector } from 'react-redux';
 import ModelCreate from '../components/Modal/ModelCreate';
 import { columnsService } from '../config/colums';
-import { dataService } from '../config/data';
+import { headerSer } from '../config/data';
+import { RootState } from '../store';
+import { getService } from '../store/actions/ServiceAction';
+
 const { Content } = Layout;
 
 const Service: FC = () => {
+  
+  const dispatch = useDispatch();
+  const { ticket } = useSelector((state: RootState) => state.service);
+  useEffect(() => {
+    dispatch(getService());
+  }, [dispatch]);
 
   return (
     <Content
@@ -25,11 +36,16 @@ const Service: FC = () => {
 
           <Col span={12} className="card-header"
             style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              className="bt-fitter"
-              style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
-              Xuất file (.csv)
-            </Button>
+            <CSVLink
+              data={ticket} headers={headerSer} filename={"my-file.csv"}
+            >
+
+              <Button
+                className="bt-fitter"
+                style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
+                Xuất file (.csv)
+              </Button>
+            </CSVLink>
             <ModelCreate />
           </Col>
         </Row>
@@ -39,7 +55,7 @@ const Service: FC = () => {
             <Table
               columns={columnsService}
               pagination={{ position: ["bottomCenter"] }}
-              dataSource={dataService}
+              dataSource={ticket}
               rowKey="id"
             />
           </Col>
