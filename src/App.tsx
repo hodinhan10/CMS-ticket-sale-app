@@ -24,6 +24,7 @@ const App = () => {
           <Route path="/" component={Home} exact />
 
           <Route path="/ticket-manage/events" component={TicketManage} exact />
+          <Route path="/ticket-manage/events/idTicket/:idTicket" component={TicketManage} exact />
           <Route path="/ticket-manage/events/checkIn/:checkIn/status/:status/dayUsed/:dayUsed/dayEnd/:dayEnd" component={TicketManage} exact />
              
           <Route path="/checking-ticket" component={CheckingTicket} exact />

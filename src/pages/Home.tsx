@@ -1,53 +1,36 @@
-// import { Area, Pie } from '@ant-design/plots';
 import { Card, Col, Layout, Row } from 'antd';
-import { FC } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import { FC, useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import StylingCalendar from '../components/calendar/StyledCalendar';
-import DonutChart from './DonutChart';
+import AreaChart from '../components/chart/AreaChart';
+import DonutChart from '../components/chart/DonutChart';
+import { RootState } from '../store';
 const { Content } = Layout;
 
+const dataDonut1 = [13568, 56024];
+const dataDonut2 = [28302, 30256];
+
 const Home: FC = () => {
-  const xList = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN"];
-  const yList = [148, 170, 190, 231, 212, 215, 188];
 
-  const chartSeries = [
-    {
-      name: "Doanh thu",
-      data: yList
-    }
-  ];
+  const [dateDonut, setDateDonut] = useState<string>('');
+  const [dateArea, setDateArea] = useState<string>('');
+  const chartSeries = [148, 170, 190, 231, 212, 215, 188];
+  // console.log('dateDonut',dateDonut)
 
-  const chartOptions: any = {
-    chart: { toolbar: "false" },
-    dataLabels: { enabled: !1 },
-    stroke: { curve: "smooth", width: 2 },
-    markers: { size: 0, style: "hollow" },
-    xaxis: {
-      categories: xList
-    },
-    yaxis: {
-      tickAmount: 3,
-      min: 140,
-      max: 260,
-      labels: {
-        formatter: (value: any) => { return value + "tr" },
-      }
+  const dispatch = useDispatch();
+  // const data = useSelector((state: RootState) => state.doanhthu.dataTable)
+  // const dataSoVe = useSelector((state: RootState) => state.doanhthu.dataTableSoVe)
+  const date = useSelector((state: RootState) => state.Chart.dateSingle)
+  const dateSoVe = useSelector((state: RootState) => state.Chart.dateSingleSoVe)
+  const reload = useSelector((state: RootState) => state.Chart.reload)
+  // console.log('date',date)
+  // console.log('dateSoVe',dateSoVe)
+  useLayoutEffect(() => {
+    // dispatch(getDataTableDoanhThu(date))
+    // dispatch(getDataTableSoVe(dateSoVe))
 
-    },
-    colors: ["#FF993C"],
-    fill: {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.4,
-        opacityTo: 0.05,
-        stops: [50, 100, 100, 100]
-      }
-    }
-  };
+  },[reload, dispatch]);
 
-  const dataDonut1 = [13568, 56024]
-  const dataDonut2 = [28302, 30256]
 
   return (
     <Content
@@ -56,25 +39,23 @@ const Home: FC = () => {
         padding: 24,
         minHeight: 280,
         marginRight: 33,
-
       }}
     >
       <Card title="Thống kê" bordered={false} style={{ fontSize: 20, borderRadius: 24 }}>
 
         <Row style={{ display: 'flex', justifyContent: 'space-between', marginRight: 30 }}>
           <span style={{ fontWeight: 600, fontSize: '18px', lineHeight: '28px' }}>Doanh Thu</span>
-          <span><StylingCalendar /></span>
+          <span>
+            <StylingCalendar
+              valueDay={dateDonut}
+              setValueDay={setDateDonut}
+            />
+          </span>
         </Row>
 
         <Row style={{ marginTop: "40px" }}>
           <Col span={24}>
-            {/* <Area {...configArea} data={dataArea}/> */}
-            <ReactApexChart
-              options={chartOptions}
-              series={chartSeries}
-              type="area"
-              height={250}
-            />
+            <AreaChart data={chartSeries} ></AreaChart>
           </Col>
         </Row>
 
@@ -93,21 +74,23 @@ const Home: FC = () => {
 
         <Row style={{ marginTop: "40px" }}>
           <Col span={3}>
-            <span><StylingCalendar /></span>
+            <span>
+              <StylingCalendar
+                valueDay={dateArea}
+                setValueDay={setDateArea}
+              /></span>
           </Col>
 
           <Col span={8}>
             <Row style={{ display: 'flex', justifyContent: 'center', marginLeft: '-90px', fontSize: 18, fontWeight: 600 }}>Gói gia đình</Row>
             <Row style={{ display: 'flex', justifyContent: 'center' }}>
-              {/* <Pie {...configPie}  /> */}
-                <DonutChart data={dataDonut1}></DonutChart>
+              <DonutChart data={dataDonut1}></DonutChart>
             </Row>
           </Col>
 
           <Col span={8}>
             <Row style={{ display: 'flex', justifyContent: 'center', marginLeft: '-100px', fontSize: 18, fontWeight: 600 }}>Gói sự kiện</Row>
             <Row style={{ display: 'flex', justifyContent: 'center' }}>
-              {/* <Pie {...configPie} /> */}
               <DonutChart data={dataDonut2}></DonutChart>
             </Row>
           </Col>
@@ -125,7 +108,6 @@ const Home: FC = () => {
           </Col>
 
         </Row>
-
       </Card>
 
     </Content>

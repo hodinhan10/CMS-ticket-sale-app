@@ -66,6 +66,7 @@ export const getTicketMn = ({
   }
 }
 
+
 export const detailsTicketEvent = (
   id: any
   ): ThunkAction<void, RootState, null, TicketAction> => {
@@ -78,27 +79,28 @@ export const detailsTicketEvent = (
           arr1.push({ ...doc.data(), ...{ id: doc.id } })
           // console.log("Cached document data:", arr1);
           dispatch({ type: GET_CHECKING_GROUP_DETAILS, payload: arr1 });
-
         }).catch((error) => {
           console.log("Error getting cached document:", error);
         });
     } catch (error) {
       console.log(error);
-
     }
   }
 }
+
+
 // UpdateDayEndTicketEvent
 export const UpdateDayEndTicketEvent = (
   DateEnd: any, 
   id: any
   ): ThunkAction<void, RootState, null, TicketAction> => {
-  console.log('DateEnd', DateEnd)
+  // console.log('DateEnd', DateEnd)
+  // console.log(id)
   return async dispatch => {
+    const DateEndNow = MDYtoDate(DateEnd)
     try {
-      const DateEndNow = MDYtoDate(DateEnd)
       console.log('DateEndNow', DateEndNow)
-      // db.collection("TicketManage").doc(id).update({DateEnd: DateEndNow})
+      db.collection("TicketManage").doc(id).update({DateEnd: DateEndNow})
       // dispatch({ type: GET_CHECKING_GROUP_UPDATE, payload: arr1 });
     } catch (error) {
       console.log(error);

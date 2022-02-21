@@ -1,6 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Layout, Row, Table } from 'antd';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CSVLink } from 'react-csv';
 import { useDispatch, useSelector } from 'react-redux';
 import ModelCreate from '../components/Modal/ModelCreate';
@@ -12,12 +12,14 @@ import { getService } from '../store/actions/ServiceAction';
 const { Content } = Layout;
 
 const Service: FC = () => {
-  
+  const [valueSreach, setValueSreach] = useState('')
+
   const dispatch = useDispatch();
   const { ticket } = useSelector((state: RootState) => state.service);
+
   useEffect(() => {
-    dispatch(getService());
-  }, [dispatch]);
+    dispatch(getService({ valueSreach }));
+  }, [dispatch, valueSreach]);
 
   return (
     <Content
@@ -28,6 +30,8 @@ const Service: FC = () => {
         <Row style={{ marginTop: 10 }}>
           <Col span={12}>
             <Input
+              value={valueSreach}
+              onChange={(e: any) => setValueSreach(e.target.value)}
               placeholder="Tìm bằng số vé"
               className='Input-sreach'
               suffix={<SearchOutlined style={{ fontSize: 24 }} />}

@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import StylingCalendar from '../components/calendar/StyledCalendar';
 import { columnsCheckingTicket } from '../config/colums';
 import { headersTicket } from '../config/data';
-import { dateToM_D_Y, dateTooDMY } from '../config/function';
+import { dateToM_D_Y } from '../config/function';
 import { RootState } from '../store';
 import { getCheckingTicket, getCheckingTicketCheckbox } from '../store/actions/CheckingTicketAction';
 

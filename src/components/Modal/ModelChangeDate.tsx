@@ -1,7 +1,8 @@
 import { Button, Col, Form, Modal, Row } from 'antd';
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MDYtoDate, SecondsToM_D_Y } from '../../config/function';
+import { SecondsToM_D_Y } from '../../config/function';
+import db from '../../firebase/config';
 import { RootState } from '../../store';
 import { detailsTicketEvent, UpdateDayEndTicketEvent } from '../../store/actions/TicketManageActions';
 import StylingCalendar from '../calendar/StyledCalendar';
@@ -13,21 +14,34 @@ type Props = {
 const ModelChangeDate: FC<Props> = (props) => {
   const [visible, setVisible] = useState(false);
 
-  const ticket = useSelector((state: RootState) => state.ticketGroupDetails);
-  const { ticketGroupDetails }: any = ticket;
+  // if (ticket[0]) {
+  const ticketNow = useSelector((state: RootState) => state.ticketGroupDetails);
+
+  const { ticketGroupDetails }: any = ticketNow;
+  const { loaded } = useSelector((state: RootState) => state.ticket);
 
   const [DateEnd, setDateEnd] = useState('')
-
-  if (ticketGroupDetails[0]) setDateEnd(SecondsToM_D_Y(ticketGroupDetails[0].DateEnd.seconds))
+  // console.log('props', props.id)
   console.log('ticketGroupDetails', ticketGroupDetails)
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(detailsTicketEvent(props.id));
-  }, [props.id, DateEnd, dispatch])
+  // console.log('DateEnd', DateEnd)
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (ticketGroupDetails[0]) {
+      setDateEnd(SecondsToM_D_Y(ticketGroupDetails[0].DateEnd.seconds))
+      console.log('DateEnd', DateEnd)
+    } else {
+      setDateEnd('')
+    }
+
+    if (loaded) 
+    dispatch(detailsTicketEvent(props.id))
+
+  }, [dispatch, DateEnd])
 
   const onFinish = () => {
-    // dispatch(UpdateDayEndTicketEvent(ticketGroupDetails[0]?.DateEnd?.seconds, props.id));
+    dispatch(UpdateDayEndTicketEvent(DateEnd, props.id));
   };
 
 

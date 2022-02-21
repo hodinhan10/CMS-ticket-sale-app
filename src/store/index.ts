@@ -5,11 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import  {ticketReducer, ticketGroupDetailsReducer, ticketFamilyReducer } from './reducers/TicketManageReducer';
 import {ticketCheckReducer, ticketCheckSelectReducer} from './reducers/CheckingTicketReducer';
 import { serviceReducer } from './reducers/ServiceReducer';
+import ChartReducer from './reducers/ChartReducer';
 
 const rootReducer = combineReducers({
     ticketCheck: ticketCheckReducer,
     ticketCheckSelect:ticketCheckSelectReducer,
-    
+    Chart:ChartReducer,
     ticket: ticketReducer,
     ticketGroupDetails: ticketGroupDetailsReducer,
     ticketFamily: ticketFamilyReducer,

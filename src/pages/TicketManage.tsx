@@ -1,16 +1,15 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Input, Layout, Row, Table, Tabs } from 'antd';
 import { FC, useEffect, useState } from 'react';
+import { CSVLink } from "react-csv";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ModelFilterTicket from '../components/Modal/ModelFilterTicket';
 import { columnsTicketFamily, columnsTicketManage } from '../config/colums';
-import { CSVLink } from "react-csv";
-import db from '../firebase/config';
-import { RootState } from '../store';
-
-import { getTicketFamily, getTicketMn } from '../store/actions/TicketManageActions';
 import { headersMn } from '../config/data';
+import { RootState } from '../store';
+import { getTicketFamily, getTicketMn } from '../store/actions/TicketManageActions';
+
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
