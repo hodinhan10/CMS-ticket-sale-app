@@ -102,7 +102,7 @@ const CheckingTicket: FC<Props> = (props) => {
               <Col span={24}>
                 <Table
                   columns={columnsCheckingTicket}
-                  pagination={{ position: ["bottomCenter"] }}
+                  pagination={{defaultPageSize: 8, position: ["bottomCenter"] }}
                   dataSource={ticket}
                   rowKey="id"
                 />

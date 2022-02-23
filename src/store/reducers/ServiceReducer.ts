@@ -1,4 +1,4 @@
-import { GET_SERVICE, ServiceTicketAction, ServiceState, CREATE_SERVICE } from '../types';
+import { GET_SERVICE, ServiceTicketAction, ServiceState, CREATE_SERVICE, UPDATE_SERVICE } from '../types';
 
 const initialState: ServiceState = {
   ticket: []
@@ -13,7 +13,11 @@ export const serviceReducer = (state = initialState, action: ServiceTicketAction
       }
     case CREATE_SERVICE:
       return {
-        ticket_id: action.payload,
+        ticket_create: action.payload,
+      }
+    case UPDATE_SERVICE:
+      return {
+        ticket_update: action.payload,
       }
     default:
       return state;

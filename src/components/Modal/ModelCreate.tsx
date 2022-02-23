@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, DatePicker, Form, Input, Modal, Radio, Row, Select } from 'antd';
+import { Button, Checkbox, Col, DatePicker, Form, Input, Modal, Row, Select } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createService } from '../../store/actions/ServiceAction';
@@ -14,28 +14,18 @@ const ModelCreate: FC = () => {
   const [Qty, setQty] = useState('');
 
   const [DateUsedDMY, setDateUsedDMY] = useState('');
-  const [DateUsedhms, setDateUsedhms] = useState('00:00:00');
+  const [DateUsedhms, setDateUsedhms] = useState('');
 
   const [DateEndDMY, setDateEndDMY] = useState('');
-  const [DateEndhms, setDateEndhms] = useState('00:00:00');
+  const [DateEndhms, setDateEndhms] = useState('');
 
   const [Status, setStatus] = useState(1);
   const [TicketName, setTicketName] = useState('');
   const [TicketPrice, setTicketPrice] = useState('');
 
-  function handleChange(value: any) {
-    console.log(`selected ${value}`);
-  }
-
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
-
-  function onChangeDay(a: any, b: any) {
-    console.log('b', b);
-    setDateUsedhms(b)
-    console.log('DateUsedhms', DateUsedhms);
-  }
 
   const [Clieck1, setClieck1] = useState(true);
   const [Clieck2, setClieck2] = useState(true);
@@ -66,15 +56,14 @@ const ModelCreate: FC = () => {
 
   // DateEndDMY
   const DateEnd = new Date(
-    (new Date(DateUsedDMY).getTime()) +
+    (new Date(DateEndDMY).getTime()) +
     (+DateEndhms.split(':')[0]) * 60 * 60
     + (+DateEndhms.split(':')[1]) * 60
     + (+DateEndhms.split(':')[2])
   );
-
   // BookingCode
   const BookingCode = 'AL'+ Number(Math.random().toPrecision(8))*100000000
-
+    
   const onFinish = () => {
     dispatch(createService({
       BookingCode,
@@ -152,7 +141,8 @@ const ModelCreate: FC = () => {
                     picker='time'
                     placeholder="hh:mm:ss"
                     className="input-calendar"
-                    onChange={onChangeDay}
+                    // defaultValue={moment('00:00:00', 'hh:mm:ss')}
+                    onChange={(a, b) => setDateUsedhms(b)}
                   />
                 </Col>
               </Row>
@@ -160,7 +150,7 @@ const ModelCreate: FC = () => {
 
             <Col span={12}>
               <Row >
-                <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày áp dụng</Col>
+                <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày hết hạn</Col>
                 <Col span={10}>
                   <StylingCalendar
                     valueDay={DateEndDMY}
@@ -174,7 +164,7 @@ const ModelCreate: FC = () => {
                     picker='time'
                     placeholder="hh:mm:ss"
                     className="input-calendar"
-                    // defaultValue={DateEndhms}
+                    // defaultValue={moment('00:00:00', 'hh:mm:ss')}
                     onChange={(a, b) => setDateEndhms(b)}
                   />
                 </Col>

@@ -1,6 +1,8 @@
-import { Button, Checkbox, Col, DatePicker, Form, Input, Modal, Radio, Row, Select } from 'antd';
+import { Button, Checkbox, Col, DatePicker, Form, Input, Modal, Row, Select } from 'antd';
+import moment from 'moment';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { SecondsToD_M_Y, SecondsToh_m_s, SecondsToM_D_Y } from '../../config/function';
 import Icon_edit from '../../images/Icon_edit.png';
 import { updateService } from '../../store/actions/ServiceAction';
 import StylingCalendar from '../calendar/StyledCalendar';
@@ -14,34 +16,24 @@ type Props = {
 const ModelUpdate: FC<Props> = (props) => {
   const [visible, setVisible] = useState(false);
 
-  const [Price, setPrice] = useState('');
-  const [Qty, setQty] = useState('');
+  const [Price, setPrice] = useState(props.data.ComboPrice.Price);
+  const [Qty, setQty] = useState(props.data.ComboPrice.Qty);
 
-  const [DateUsedDMY, setDateUsedDMY] = useState('');
-  const [DateUsedhms, setDateUsedhms] = useState('00:00:00');
+  const [DateUsedDMY, setDateUsedDMY] = useState(SecondsToD_M_Y(props.data.DateUsed.seconds));
+  const [DateUsedhms, setDateUsedhms] = useState(SecondsToh_m_s(props.data.DateUsed.seconds));
 
-  const [DateEndDMY, setDateEndDMY] = useState('');
-  const [DateEndhms, setDateEndhms] = useState('00:00:00');
+  const [DateEndDMY, setDateEndDMY] = useState(SecondsToD_M_Y(props.data.DateEnd.seconds));
+  const [DateEndhms, setDateEndhms] = useState(SecondsToh_m_s(props.data.DateEnd.seconds));
 
-  const [Status, setStatus] = useState(1);
-  const [TicketName, setTicketName] = useState('');
-  const [BookingCode, setBookingCode] = useState('');
-  const [TicketPrice, setTicketPrice] = useState('');
-
-  function handleChange(value: any) {
-    console.log(`selected ${value}`);
-  }
+  const [Status, setStatus] = useState(props.data.Status);
+  const [TicketName, setTicketName] = useState(props.data.TicketName);
+  const [BookingCode, setBookingCode] = useState(props.data.BookingCode);
+  const [TicketPrice, setTicketPrice] = useState(props.data.TicketPrice);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
-
-  function onChangeDay(a: any, b: any) {
-    console.log('b', b);
-    setDateUsedhms(b)
-    console.log('DateUsedhms', DateUsedhms);
-  }
-
+  
   const [Clieck1, setClieck1] = useState(true);
   const [Clieck2, setClieck2] = useState(true);
 
@@ -54,6 +46,7 @@ const ModelUpdate: FC<Props> = (props) => {
     if (checkedValues.target.checked) setClieck2(false)
     else setClieck2(true)
   }
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -71,13 +64,11 @@ const ModelUpdate: FC<Props> = (props) => {
 
   // DateEndDMY
   const DateEnd = new Date(
-    (new Date(DateUsedDMY).getTime()) +
+    (new Date(DateEndDMY).getTime()) +
     (+DateEndhms.split(':')[0]) * 60 * 60
     + (+DateEndhms.split(':')[1]) * 60
     + (+DateEndhms.split(':')[2])
   );
-
-  // BookingCode
 
   const onFinish = () => {
     dispatch(updateService({
@@ -89,7 +80,7 @@ const ModelUpdate: FC<Props> = (props) => {
       DateEnd,
       Status,
     },
-      props.id
+      props.data.id
     ))
   };
 
@@ -170,7 +161,8 @@ const ModelUpdate: FC<Props> = (props) => {
                     picker='time'
                     placeholder="hh:mm:ss"
                     className="input-calendar"
-                    onChange={onChangeDay}
+                    defaultValue={moment(DateUsedhms, 'hh:mm:ss')}
+                    onChange={(a, b) => setDateUsedhms(b)}
                   />
                 </Col>
               </Row>
@@ -178,7 +170,7 @@ const ModelUpdate: FC<Props> = (props) => {
 
             <Col span={12}>
               <Row >
-                <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày áp dụng</Col>
+                <Col span={24} style={{ fontWeight: 600, marginBottom: 5 }}>Ngày hết hạn</Col>
                 <Col span={10}>
                   <StylingCalendar
                     valueDay={DateEndDMY}
@@ -192,7 +184,7 @@ const ModelUpdate: FC<Props> = (props) => {
                     picker='time'
                     placeholder="hh:mm:ss"
                     className="input-calendar"
-                    // defaultValue={DateEndhms}
+                    defaultValue={moment(DateEndhms, 'hh:mm:ss')}
                     onChange={(a, b) => setDateEndhms(b)}
                   />
                 </Col>

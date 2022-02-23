@@ -1,6 +1,6 @@
-import { MoreOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 import ModelChangeDate from '../components/Modal/ModelChangeDate';
+import ModelChangeDateFml from '../components/Modal/ModelChangeDateFml';
 import ModelUpdate from '../components/Modal/ModelUpdate';
 import { formatNumber, SecondsToM_D_Y, SecondsToM_D_Y_h_m_s } from './function';
 
@@ -139,7 +139,8 @@ export const columnsTicketManage = [
   {
     dataIndex: 'id',
     key: 'id',
-    render: (text: any) =>  <ModelChangeDate id={text}><MoreOutlined /></ModelChangeDate>,
+    render: (text: any, record: any) =>
+      <ModelChangeDate data={record} />
   }
 ];
 
@@ -200,7 +201,7 @@ export const columnsTicketFamily = [
     title: 'Ngày sự dụng',
     dataIndex: 'DateUsed',
     key: 'DateUsed',
-    render: (text: any) => <ModelChangeDate >{SecondsToM_D_Y(text.seconds)}</ModelChangeDate>,
+    render: (text: any) => <span >{SecondsToM_D_Y(text.seconds)}</span>,
   },
   {
     title: 'Ngày xuất vé',
@@ -213,11 +214,14 @@ export const columnsTicketFamily = [
     dataIndex: 'CheckIn',
     key: 'CheckIn',
     render: (text: any) => <span>{text}</span>,
+  },
+  {
+    dataIndex: 'id',
+    key: 'id',
+    render: (text: any, record: any) =>
+      <ModelChangeDateFml data={record} />
   }
 ];
-
-
-
 
 export const columnsService = [
   {
@@ -290,7 +294,7 @@ export const columnsService = [
   {
     dataIndex: 'id',
     key: 'id',
-    render: (text: any) =>
-      <ModelUpdate id={text}/>,
+    render: (text: any, record: any) =>
+      <ModelUpdate data={record} />,
   }
 ];

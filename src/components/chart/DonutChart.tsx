@@ -9,8 +9,6 @@ const DonutChart = ({data}:DonutChartProps) => {
   
   const series = [...data];
 
-  // const [total, setTotal] = useState<Array<number>>(series)
-  
   const options: any = {
     chart: {
       type: 'donut'
@@ -44,7 +42,7 @@ const DonutChart = ({data}:DonutChartProps) => {
         border: "1px solid black",
         fontFamily: "Montserrat, sans-serif",
         fontWeight: 400,
-        fontSize: '2rem',
+        fontSize: '40px',
       },
       formatter: function (val:any,{ seriesIndex, dataPointIndex, w }:any) {
         let total = 0
@@ -71,7 +69,7 @@ const DonutChart = ({data}:DonutChartProps) => {
       series={series}
       type="donut"
       width="100%"
-      height={250}
+      height={300}
     />
   );
 };

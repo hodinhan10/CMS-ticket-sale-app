@@ -30,20 +30,16 @@ const TicketManage: FC = (props: Props) => {
     console.log(key);
   }
 
-  // let statusNumber = Number(status);
   const { ticket } = useSelector((state: RootState) => state.ticket);
   const { ticket: ticketFamily } = useSelector((state: RootState) => state.ticketFamily);
   const dispatch = useDispatch();
   const [valueSreachEvent, setvalueSreachEvent] = useState('')
   const [valueSreachFamily, setvalueSreachFamily] = useState('')
-  // console.log('ticketFamily', ticketFamily)
 
   useEffect(() => {
     dispatch(getTicketMn({ checkIn, status, dayUsed, dayEnd, valueSreachEvent }));
     dispatch(getTicketFamily({ checkIn, status, dayUsed, dayEnd, valueSreachFamily }));
   }, [dispatch, checkIn, status, dayUsed, dayEnd, valueSreachEvent]);
-
-  // console.log('ticket', ticket)  
 
   return (
     <Content
@@ -58,7 +54,6 @@ const TicketManage: FC = (props: Props) => {
 
           {/*  Gói sự kiện */}
           <TabPane tab="Gói sự kiện" key="1">
-
             <Row style={{ marginTop: 10 }}>
               <Col span={12}>
                 <Input
@@ -92,7 +87,7 @@ const TicketManage: FC = (props: Props) => {
               <Col span={24}>
                 <Table
                   columns={columnsTicketManage}
-                  pagination={{ position: ["bottomCenter"] }}
+                  pagination={{ defaultPageSize: 8, position: ["bottomCenter"] }}
                   dataSource={ticket}
                   rowKey="id"
                 />
@@ -135,7 +130,7 @@ const TicketManage: FC = (props: Props) => {
               <Col span={24}>
                 <Table
                   columns={columnsTicketFamily}
-                  pagination={{ position: ["bottomCenter"] }}
+                  pagination={{ defaultPageSize: 8, position: ["bottomCenter"] }}
                   dataSource={ticketFamily}
                   rowKey="id"
                 />

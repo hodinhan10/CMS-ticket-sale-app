@@ -1,6 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
-import { dateTooDMY } from '../../config/function';
 import db from '../../firebase/config';
 import { GET_CHECKING_MN, GET_CHECKING_SELECT, TicketManageAction } from '../types';
 
@@ -15,21 +14,7 @@ export const getCheckingTicket = (
   return async dispatch => {
     try {
       const statusNumber = Number(usageStatus)
-
-      // const fomatDateStart = await dayStart === 0 ? 0 : dateTooDMY(dayStart)
-      // console.log('dayStart', fomatDateStart, typeof fomatDateStart)
-      // const DateStart = new Date(fomatDateStart).toString()
-      // console.log('dayStart', DateStart, typeof DateStart)
-      // // const DateStart = new Date(fomatDateStart).toISOString()
-      // // console.log(new Date('05 October 2011  UTC'))
-      // const fomatDateEnd = dayEnd === 0 ? 0 : dateTooDMY(dayEnd)
-      // const DateEnd = new Date(fomatDateEnd)
-
-
-      // console.log('dayStart',dayStart, typeof dayStart)
       const DateStart = new Date(dayStart)
-      // console.log('DateStart',DateStart, typeof DateStart)
-
       const DateEnd = new Date(dayEnd)
 
       let arr1: any = [];
@@ -82,7 +67,6 @@ export const getCheckingTicket = (
     }
   }
 }
-
 
 
 export const getCheckingTicketCheckbox = (): ThunkAction<void, RootState, null, TicketManageAction> => {

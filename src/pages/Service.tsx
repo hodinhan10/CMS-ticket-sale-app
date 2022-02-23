@@ -5,7 +5,6 @@ import { CSVLink } from 'react-csv';
 import { useDispatch, useSelector } from 'react-redux';
 import ModelCreate from '../components/Modal/ModelCreate';
 import { columnsService } from '../config/colums';
-import { headerSer } from '../config/data';
 import { RootState } from '../store';
 import { getService } from '../store/actions/ServiceAction';
 
@@ -15,11 +14,11 @@ const Service: FC = () => {
   const [valueSreach, setValueSreach] = useState('')
 
   const dispatch = useDispatch();
-  const { ticket } = useSelector((state: RootState) => state.service);
+  const { ticket, ticket_create, ticket_update } = useSelector((state: RootState) => state.service);
 
   useEffect(() => {
     dispatch(getService({ valueSreach }));
-  }, [dispatch, valueSreach]);
+  }, [dispatch, valueSreach, ticket_create, ticket_update]);
 
   return (
     <Content
@@ -32,7 +31,7 @@ const Service: FC = () => {
             <Input
               value={valueSreach}
               onChange={(e: any) => setValueSreach(e.target.value)}
-              placeholder="Tìm bằng số vé"
+              placeholder="Tìm bằng mã gói"
               className='Input-sreach'
               suffix={<SearchOutlined style={{ fontSize: 24 }} />}
             />
@@ -40,16 +39,15 @@ const Service: FC = () => {
 
           <Col span={12} className="card-header"
             style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <CSVLink
+            {/* <CSVLink
               data={ticket} headers={headerSer} filename={"my-file.csv"}
-            >
-
-              <Button
-                className="bt-fitter"
-                style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
-                Xuất file (.csv)
-              </Button>
-            </CSVLink>
+            > */}
+            <Button
+              className="bt-fitter"
+              style={{ width: 181, fontWeight: 'bold', fontSize: 18, }}>
+              Xuất file (.csv)
+            </Button>
+            {/* </CSVLink> */}
             <ModelCreate />
           </Col>
         </Row>
@@ -58,7 +56,7 @@ const Service: FC = () => {
           <Col span={24}>
             <Table
               columns={columnsService}
-              pagination={{ position: ["bottomCenter"] }}
+              pagination={{ defaultPageSize: 8, position: ["bottomCenter"] }}
               dataSource={ticket}
               rowKey="id"
             />

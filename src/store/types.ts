@@ -87,6 +87,7 @@ export type TicketManageAction = TicketMnAction | TicketSelectAction;
 // --------------------------- //
 export const GET_SERVICE = 'GET_SERVICE';
 export const CREATE_SERVICE = 'CREATE_SERVICE';
+export const UPDATE_SERVICE = 'UPDATE_SERVICE';
 
 export interface Service {
     id?: string;
@@ -119,4 +120,9 @@ interface createServiceAction {
     payload: string;
 }
 
-export type ServiceTicketAction = ServiceAction | createServiceAction;
+interface updateServiceAction {
+    type: typeof UPDATE_SERVICE;
+    payload: any;
+}
+
+export type ServiceTicketAction = ServiceAction | createServiceAction | updateServiceAction;

@@ -3,14 +3,14 @@ import { Button, Col, Form, Modal, Row } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SecondsToM_D_Y } from '../../config/function';
-import { UpdateDayEndTicketEvent } from '../../store/actions/TicketManageActions';
+import { UpdateDayEndTicketEventFml } from '../../store/actions/TicketManageActions';
 import StylingCalendar from '../calendar/StyledCalendar';
 
 type Props = {
   [key: string]: any;
 };
 
-const ModelChangeDate: FC<Props> = (props) => {
+const ModelChangeDateFml: FC<Props> = (props) => {
   const [visible, setVisible] = useState(false);
 
   const [DateEnd, setDateEnd] = useState(SecondsToM_D_Y(props.data.DateEnd.seconds))
@@ -20,7 +20,7 @@ const ModelChangeDate: FC<Props> = (props) => {
   }, [dispatch, DateEnd])
 
   const onFinish = () => {
-    dispatch(UpdateDayEndTicketEvent(DateEnd, props.data.id));
+    dispatch(UpdateDayEndTicketEventFml(DateEnd, props.data.id));
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -109,4 +109,4 @@ const ModelChangeDate: FC<Props> = (props) => {
 };
 
 
-export default (ModelChangeDate);
+export default (ModelChangeDateFml);

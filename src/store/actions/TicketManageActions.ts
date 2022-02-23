@@ -4,9 +4,7 @@ import { MDYtoDate } from '../../config/function';
 import db from '../../firebase/config';
 import {
   GET_CHECKING_FAMILY,
-  GET_CHECKING_GROUP,
-  GET_CHECKING_GROUP_DETAILS,
-  TicketAction
+  GET_CHECKING_GROUP, TicketAction
 } from '../types';
 
 export const getTicketMn = ({
@@ -67,40 +65,18 @@ export const getTicketMn = ({
 }
 
 
-export const detailsTicketEvent = (
-  id: any
-  ): ThunkAction<void, RootState, null, TicketAction> => {
-  // console.log(id);
-  return async dispatch => {
-    try {
-      await  db.collection("TicketManage").doc(id)
-        .get().then((doc) => {
-          let arr1: any = [];
-          arr1.push({ ...doc.data(), ...{ id: doc.id } })
-          // console.log("Cached document data:", arr1);
-          dispatch({ type: GET_CHECKING_GROUP_DETAILS, payload: arr1 });
-        }).catch((error) => {
-          console.log("Error getting cached document:", error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-
-
 // UpdateDayEndTicketEvent
 export const UpdateDayEndTicketEvent = (
-  DateEnd: any, 
+  DateEnd: any,
   id: any
-  ): ThunkAction<void, RootState, null, TicketAction> => {
-  // console.log('DateEnd', DateEnd)
-  // console.log(id)
+): ThunkAction<void, RootState, null, TicketAction> => {
   return async dispatch => {
     const DateEndNow = MDYtoDate(DateEnd)
     try {
-      console.log('DateEndNow', DateEndNow)
-      db.collection("TicketManage").doc(id).update({DateEnd: DateEndNow})
+      const docRef = db.collection("TicketManage").doc(id)
+
+      const updateTimestamp = await docRef.update({ DateEnd: DateEndNow })
+      console.log('updateTimestamp', updateTimestamp)
       // dispatch({ type: GET_CHECKING_GROUP_UPDATE, payload: arr1 });
     } catch (error) {
       console.log(error);
@@ -157,7 +133,7 @@ export const getTicketFamily = ({
             arr3.push({ ...doc.data(), ...{ id: doc.id } })
           });
         });
-      
+
       const arr = await arr1.filter((o: any) => arr2.some(({ id }: any) => o.id === id));
       const arrAll = await arr.filter((o: any) => arr3.some(({ id }: any) => o.id === id));
 
@@ -165,6 +141,26 @@ export const getTicketFamily = ({
 
     } catch (err) {
       console.log(err);
+    }
+  }
+}
+
+// UpdateDayEndTicketEvent
+export const UpdateDayEndTicketEventFml = (
+  DateEnd: any,
+  id: any
+): ThunkAction<void, RootState, null, TicketAction> => {
+  return async dispatch => {
+    const DateEndNow = MDYtoDate(DateEnd)
+    try {
+      const docRef = db.collection("TicketFamily").doc(id)
+
+      const updateTimestamp = await docRef.update({ DateEnd: DateEndNow })
+      console.log('updateTimestamp', updateTimestamp)
+      // dispatch({ type: GET_CHECKING_GROUP_UPDATE, payload: arr1 });
+    } catch (error) {
+      console.log(error);
+
     }
   }
 }

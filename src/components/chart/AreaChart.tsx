@@ -22,12 +22,13 @@ const AreaChart = ({data}:AreaChartProps) => {
     stroke: { curve: "smooth", width: 2 },
     markers: { size: 0, style: "hollow" },
     xaxis: {
-      categories: xList
+      categories: xList,
+      
     },
     yaxis: {
       tickAmount: 3,
-      min: 140,
-      max: 260,
+      min: 10,
+      max: 100,
       labels: {
         formatter: (value:any) => { return value + "tr"},
       }
@@ -50,7 +51,7 @@ const AreaChart = ({data}:AreaChartProps) => {
       options={chartOptions}
       series={chartSeries}
       type="area"
-      height={250}
+      height={300}
     />
   );
 };

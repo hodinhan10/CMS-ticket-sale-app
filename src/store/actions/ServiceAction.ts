@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import db from '../../firebase/config';
-import { CREATE_SERVICE, GET_SERVICE, ServiceTicketAction } from '../types';
+import { CREATE_SERVICE, GET_SERVICE, ServiceTicketAction, UPDATE_SERVICE } from '../types';
 
 
 export const getService = ({
@@ -37,6 +37,7 @@ export const createService = ({
   Status,
 }: any): ThunkAction<void, RootState, null, ServiceTicketAction> => {
   return async dispatch => {
+    console.log('1')
     try {
       const TicketPriceNumber = Number(TicketPrice)
       await db.collection("Service").add({
@@ -49,7 +50,7 @@ export const createService = ({
         Status,
       })
         .then((docRef) => {
-          // dispatch({ type: CREATE_SERVICE, payload: docRef.id });
+          dispatch({ type: CREATE_SERVICE, payload: docRef.id });
           console.log("Document written with ID: ", docRef.id);
         })
         .catch((error) => {
@@ -84,10 +85,12 @@ export const updateService = ({
         Status,
       })
         .then(() => {
+          dispatch({ type: UPDATE_SERVICE, 
+            payload:{BookingCode,TicketName,TicketPrice: TicketPriceNumber,ComboPrice, DateUsed, DateEnd, Status} 
+          });
           console.log("Document successfully updated!");
         })
         .catch((error) => {
-          // The document probably doesn't exist.
           console.error("Error updating document: ", error);
         });
 
